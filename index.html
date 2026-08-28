@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AyurScribe — Intelligent Patient Case Taking</title>
+
+  <!-- Tailwind CSS CDN Connection -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],  //[Font Style]
+          },
+          colors: {
+            ink: '#172321',
+            teal: '#0F766E',
+            tealDark: '#115E59',
+            sage: '#84A98C',
+            cream: '#F7FAF8',  //[Colour used] 
+          },
+          boxShadow: {
+            soft: '0 20px 60px rgba(15, 118, 110, 0.10)',
+            card: '0 12px 35px rgba(23, 35, 33, 0.07)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background: #F7FAF8; color: #172321; }
+    .hero-grid {
+      background-image:
+        linear-gradient(rgba(15,118,110,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,118,110,.045) 1px, transparent 1px);
+      background-size: 42px 42px;
+    }
+    .glass {
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .blob {
+      filter: blur(2px);
+      opacity: .55;
+    }
+    .feature-card {
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 45px rgba(23,35,33,.10);
+      border-color: rgba(15,118,110,.25);
+    }
+    .step-line {
+      background: linear-gradient(90deg, #0F766E, #84A98C);
+    }
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -7px;
+      width: 0; height: 2px;
+      background: #0F766E;
+      transition: width .2s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+    .fade-up {
+      animation: fadeUp .7s ease both;
+    }
+    .fade-up-delay-1 { animation-delay: .1s; }
+    .fade-up-delay-2 { animation-delay: .2s; }
+    .fade-up-delay-3 { animation-delay: .3s; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<!-- WARNING -->
+<!-- You can change the Brand Name , Any type of quotation, Any type of typographical error and other required thing but never forget to inform the developer -->
+
+<body class="font-sans antialiased">
+
+
+  <!-- Nav -->
+  <header class="fixed top-0 left-0 right-0 z-50 border-b border-slate-200/70 glass">
+    <nav class="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-teal text-white grid place-items-center shadow-lg shadow-teal/20">
+          <i data-lucide="leaf" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <div class="text-lg font-bold tracking-tight text-ink">Ayus<span class="text-teal">Care</span></div>
+          <div class="text-[10px] uppercase tracking-[.22em] text-slate-500">Intelligent Care Intake</div>
+        </div>
+      </a>
+
+      <div class="hidden md:flex items-center gap-9 text-sm font-medium text-slate-600">
+        <a class="nav-link hover:text-teal transition" href="#home">Home</a>
+        <a class="nav-link hover:text-teal transition" href="#features">Features</a>
+        <a class="nav-link hover:text-teal transition" href="#how-it-works">How it works</a>
+        <a class="nav-link hover:text-teal transition" href="#about">About</a>
+        <a class="nav-link hover:text-teal transition" href="#contact">Contact</a>
+      </div>
+
+      <div class="hidden sm:flex items-center gap-3">
+        
+        <button data-action="login" class="px-5 py-2.5 rounded-xl bg-teal text-white text-sm font-semibold shadow-lg shadow-teal/20  transition">
+          Login
+        </button>
+        <button data-action="signup" class="px-5 py-2.5 rounded-xl bg-teal text-white text-sm font-semibold shadow-lg shadow-teal/20  transition">
+          SignUp
+        </button>
+      </div>
+
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-slate-100" aria-label="Open menu">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </nav>
+
+    <div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 bg-white px-5 py-5">
+      <div class="flex flex-col gap-4 text-sm font-medium text-slate-600">
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <button data-action="login" class="text-left text-teal pt-2">Login</button>
+        <button data-action="signup" class="bg-teal text-white px-4 py-3 rounded-xl text-left">Get Started</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="home">
+
+    <!-- Home -->
+    <section class="relative min-h-screen overflow-hidden hero-grid pt-28">
+      <div class="absolute -top-32 -right-24 w-[420px] h-[420px] rounded-full bg-teal/10 blob"></div>
+      <div class="absolute top-56 -left-36 w-[360px] h-[360px] rounded-full bg-sage/10 blob"></div>
+
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 py-14 lg:py-20">
+        <div class="grid lg:grid-cols-[1.03fr_.97fr] gap-14 lg:gap-20 items-center min-h-[calc(100vh-9rem)]">
+
+          <div>
+            <div class="fade-up inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white border border-teal/15 text-teal text-xs font-bold tracking-wide shadow-sm">
+              <span class="w-2 h-2 rounded-full bg-teal animate-pulse"></span>
+               Ayurvedic case taking
+            </div>
+
+            <h1 class="fade-up fade-up-delay-1 mt-7 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-[-0.045em] leading-[1.02] text-ink">
+              Smarter case taking.<br />
+              <span class="text-teal">Better care.</span>
+            </h1>
+
+            <p class="fade-up fade-up-delay-2 mt-7 max-w-xl text-lg sm:text-xl leading-8 text-slate-600">
+              A modern patient intake platform that captures clinical history through voice and touch, organizes Ayurvedic assessments, and gives physicians a clear case summary.
+            </p>
+
+            <div class="fade-up fade-up-delay-3 mt-9 flex flex-col sm:flex-row gap-3">
+              <button data-action="signup" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-teal text-white font-semibold shadow-xl shadow-teal/20 hover:bg-tealDark hover:-translate-y-0.5 transition">
+                Get Started
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+              <a href="#how-it-works" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-slate-200 text-ink font-semibold hover:border-teal/30 hover:text-teal transition">
+                Explore the system
+                <i data-lucide="play-circle" class="w-4 h-4"></i>
+              </a>
+            </div>
+
+            <div class="mt-9 flex flex-wrap gap-x-7 gap-y-3 text-sm text-slate-500">
+              <span class="flex items-center gap-2"><i data-lucide="mic" class="w-4 h-4 text-teal"></i> Voice enabled</span>
+              <span class="flex items-center gap-2"><i data-lucide="languages" class="w-4 h-4 text-teal"></i> Multilingual ready</span>
+              <span class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-teal"></i> Privacy focused</span>
+            </div>
+          </div>
+
+          <!-- Eye-Catcher -->
+          <div class="relative">
+            <div class="absolute -inset-8 bg-teal/10 rounded-[3rem] blur-3xl"></div>
+
+            <div class="relative rounded-[2rem] border border-slate-200 bg-white shadow-soft overflow-hidden">
+              <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-teal/10 text-teal grid place-items-center">
+                    <i data-lucide="stethoscope" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold">Patient Case Intake</p>
+                    <p class="text-xs text-slate-400">New consultation · Draft</p>
+                  </div>
+                </div>
+                <span class="text-xs font-semibold text-amber-700 bg-amber-50 px-2.5 py-1.5 rounded-full">In progress</span>
+              </div>
+
+              <div class="p-5 sm:p-7">
+                <div class="flex items-center justify-between mb-7">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Step 02 of 05</p>
+                    <h3 class="mt-1 text-xl font-bold">Chief complaint</h3>
+                  </div>
+                  <div class="text-sm font-semibold text-teal">40%</div>
+                </div>
+
+                <div class="h-2 bg-slate-100 rounded-full overflow-hidden mb-7">
+                  <div class="h-full w-2/5 bg-teal rounded-full"></div>
+                </div>
+
+                <div class="rounded-2xl bg-cream border border-slate-100 p-5">
+                  <div class="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                    <i data-lucide="message-circle" class="w-4 h-4 text-teal"></i>
+                    What brings you here today?
+                  </div>
+                  <div class="mt-4 rounded-xl bg-white border border-slate-200 p-4 text-sm text-slate-500 leading-6">
+                    “I have been experiencing stomach discomfort and a burning sensation after meals.”
+                  </div>
+                  <div class="mt-4 flex items-center justify-between">
+                    <span class="text-xs text-slate-400">Captured from voice input</span>
+                    <button class="w-10 h-10 rounded-xl bg-teal text-white grid place-items-center shadow-md shadow-teal/20">
+                      <i data-lucide="mic" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mt-4">
+                  <div class="rounded-xl border border-slate-200 p-4">
+                    <p class="text-xs text-slate-400">Duration</p>
+                    <p class="mt-1 text-sm font-semibold">3 days</p>
+                  </div>
+                  <div class="rounded-xl border border-slate-200 p-4">
+                    <p class="text-xs text-slate-400">After meals</p>
+                    <p class="mt-1 text-sm font-semibold text-teal">Yes</p>
+                  </div>
+                </div>
+
+                <div class="mt-5 flex justify-between items-center">
+                  <span class="text-xs text-slate-400">Your responses are saved securely.</span>
+                  <button class="px-4 py-2.5 rounded-xl bg-ink text-white text-sm font-semibold">Continue</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="hidden sm:flex absolute -left-9 bottom-10 glass border border-white shadow-card rounded-2xl p-4 items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 grid place-items-center">
+                <i data-lucide="check" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-sm font-bold">Structured history</p>
+                <p class="text-xs text-slate-500">Ready for physician review</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature -->
+    <section id="features" class="py-24 bg-white border-y border-slate-100">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8">
+        <div class="max-w-2xl">
+          <p class="text-sm font-bold uppercase tracking-[.18em] text-teal">Core features</p>
+          <h2 class="mt-3 text-4xl sm:text-5xl font-bold tracking-tight">Designed around the consultation.</h2>
+          <p class="mt-5 text-slate-600 leading-7">
+            From the patient's first response to the physician's final review, every step is structured to reduce repetitive work and improve clarity.
+          </p>
+        </div>
+
+        <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <article class="feature-card rounded-2xl border border-slate-200 p-6 bg-white">
+            <div class="w-12 h-12 rounded-xl bg-teal/10 text-teal grid place-items-center">
+              <i data-lucide="mic-2" class="w-6 h-6"></i>
+            </div>
+            <h3 class="mt-6 text-lg font-bold">Voice + Touch</h3>
+            <p class="mt-2 text-sm leading-6 text-slate-500">Let patients answer naturally by speaking or tapping guided options.</p>
+          </article>
+
+          <article class="feature-card rounded-2xl border border-slate-200 p-6 bg-white">
+            <div class="w-12 h-12 rounded-xl bg-teal/10 text-teal grid place-items-center">
+              <i data-lucide="notebook-tabs" class="w-6 h-6"></i>
+            </div>
+            <h3 class="mt-6 text-lg font-bold">Clinical Structuring</h3>
+            <p class="mt-2 text-sm leading-6 text-slate-500">Turn patient responses into organized, physician-ready clinical history.</p>
+          </article>
+
+          <article class="feature-card rounded-2xl border border-slate-200 p-6 bg-white">
+            <div class="w-12 h-12 rounded-xl bg-teal/10 text-teal grid place-items-center">
+              <i data-lucide="leaf" class="w-6 h-6"></i>
+            </div>
+            <h3 class="mt-6 text-lg font-bold">Ayurvedic Assessment</h3>
+            <p class="mt-2 text-sm leading-6 text-slate-500">Capture Dashavidha Pariksha and relevant Ayurvedic case information.</p>
+          </article>
+
+          <article class="feature-card rounded-2xl border border-slate-200 p-6 bg-white">
+            <div class="w-12 h-12 rounded-xl bg-teal/10 text-teal grid place-items-center">
+              <i data-lucide="file-scan" class="w-6 h-6"></i>
+            </div>
+            <h3 class="mt-6 text-lg font-bold">Document OCR</h3>
+            <p class="mt-2 text-sm leading-6 text-slate-500">Digitize previous prescriptions and reports for a clearer patient timeline.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how-it-works" class="py-24 bg-cream">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8">
+        <div class="text-center max-w-2xl mx-auto">
+          <p class="text-sm font-bold uppercase tracking-[.18em] text-teal">How it works</p>
+          <h2 class="mt-3 text-4xl sm:text-5xl font-bold tracking-tight">From patient voice to clinical clarity.</h2>
+          <p class="mt-5 text-slate-600 leading-7">A simple five-step journey that keeps the patient experience easy and the physician view structured.</p>
+        </div>
+
+        <div class="mt-16 relative">
+          <div class="hidden lg:block absolute left-[10%] right-[10%] top-8 h-px step-line opacity-30"></div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-7 relative">
+            <div class="text-center">
+              <div class="mx-auto w-16 h-16 rounded-2xl bg-white border border-teal/15 text-teal grid place-items-center shadow-sm">
+                <i data-lucide="user-plus" class="w-6 h-6"></i>
+              </div>
+              <span class="block mt-5 text-xs font-bold text-teal uppercase tracking-widest">01</span>
+              <h3 class="mt-2 font-bold">Identify</h3>
+              <p class="mt-2 text-sm text-slate-500 leading-6">Patient starts a new case and provides basic details.</p>
+            </div>
+
+            <div class="text-center">
+              <div class="mx-auto w-16 h-16 rounded-2xl bg-white border border-teal/15 text-teal grid place-items-center shadow-sm">
+                <i data-lucide="messages-square" class="w-6 h-6"></i>
+              </div>
+              <span class="block mt-5 text-xs font-bold text-teal uppercase tracking-widest">02</span>
+              <h3 class="mt-2 font-bold">Converse</h3>
+              <p class="mt-2 text-sm text-slate-500 leading-6">Voice and touch capture symptoms and history.</p>
+            </div>
+
+            <div class="text-center">
+              <div class="mx-auto w-16 h-16 rounded-2xl bg-white border border-teal/15 text-teal grid place-items-center shadow-sm">
+                <i data-lucide="scan-line" class="w-6 h-6"></i>
+              </div>
+              <span class="block mt-5 text-xs font-bold text-teal uppercase tracking-widest">03</span>
+              <h3 class="mt-2 font-bold">Digitize</h3>
+              <p class="mt-2 text-sm text-slate-500 leading-6">Previous documents are uploaded and organized.</p>
+            </div>
+
+            <div class="text-center">
+              <div class="mx-auto w-16 h-16 rounded-2xl bg-white border border-teal/15 text-teal grid place-items-center shadow-sm">
+                <i data-lucide="sparkles" class="w-6 h-6"></i>
+              </div>
+              <span class="block mt-5 text-xs font-bold text-teal uppercase tracking-widest">04</span>
+              <h3 class="mt-2 font-bold">Summarize</h3>
+              <p class="mt-2 text-sm text-slate-500 leading-6">Information is structured into a concise case summary.</p>
+            </div>
+
+            <div class="text-center">
+              <div class="mx-auto w-16 h-16 rounded-2xl bg-white border border-teal/15 text-teal grid place-items-center shadow-sm">
+                <i data-lucide="stethoscope" class="w-6 h-6"></i>
+              </div>
+              <span class="block mt-5 text-xs font-bold text-teal uppercase tracking-widest">05</span>
+              <h3 class="mt-2 font-bold">Consult</h3>
+              <p class="mt-2 text-sm text-slate-500 leading-6">Physician reviews, edits and confirms the case.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="about" class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8">
+        <div class="grid lg:grid-cols-2 gap-14 items-center">
+          <div class="relative">
+            <div class="rounded-[2rem] bg-ink p-7 sm:p-10 text-white overflow-hidden">
+              <div class="absolute w-72 h-72 rounded-full bg-teal/20 -right-24 -top-24"></div>
+              <div class="relative">
+                <p class="text-sm font-semibold text-teal-200">PHYSICIAN VIEW</p>
+                <h3 class="mt-3 text-3xl font-bold">Everything important.<br />In one place.</h3>
+
+                <div class="mt-8 rounded-2xl bg-white/10 border border-white/10 p-5">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <p class="font-semibold">Rohit Sharma</p>
+                      <p class="text-xs text-white/50 mt-1">39 years · New consultation</p>
+                    </div>
+                    <span class="text-xs bg-emerald-400/15 text-emerald-300 px-2.5 py-1 rounded-full">Normal</span>
+                  </div>
+
+                  <div class="mt-6 space-y-4">
+                    <div>
+                      <p class="text-[10px] uppercase tracking-wider text-white/40">Chief complaint</p>
+                      <p class="mt-1 text-sm">Abdominal burning for 3 days, worse after meals.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                      <div>
+                        <p class="text-[10px] uppercase tracking-wider text-white/40">Previous reports</p>
+                        <p class="mt-1 text-sm">03 documents</p>
+                      </div>
+                      <div>
+                        <p class="text-[10px] uppercase tracking-wider text-white/40">Assessment</p>
+                        <p class="mt-1 text-sm">Dashavidha · Ready</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-6 flex gap-3">
+                  <button class="flex-1 py-3 rounded-xl bg-white text-ink text-sm font-semibold">Review case</button>
+                  <button class="px-4 rounded-xl bg-white/10 border border-white/10"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-sm font-bold uppercase tracking-[.18em] text-teal">Built for the care journey</p>
+            <h2 class="mt-3 text-4xl sm:text-5xl font-bold tracking-tight">Less repetitive paperwork. More meaningful consultation.</h2>
+            <p class="mt-6 text-slate-600 leading-7">
+              AyurScribe is designed as a focused intake layer between the patient and physician. It collects information conversationally, structures it, and presents it in a form that is easy to review.
+            </p>
+
+            <div class="mt-8 space-y-5">
+              <div class="flex gap-4">
+                <div class="mt-1 w-9 h-9 rounded-lg bg-teal/10 text-teal grid place-items-center shrink-0"><i data-lucide="check" class="w-4 h-4"></i></div>
+                <div><h4 class="font-bold">Patient-friendly experience</h4><p class="mt-1 text-sm text-slate-500">Simple prompts, touch choices and voice input reduce typing.</p></div>
+              </div>
+              <div class="flex gap-4">
+                <div class="mt-1 w-9 h-9 rounded-lg bg-teal/10 text-teal grid place-items-center shrink-0"><i data-lucide="check" class="w-4 h-4"></i></div>
+                <div><h4 class="font-bold">Ayurveda-aware structure</h4><p class="mt-1 text-sm text-slate-500">Case information can include the required Ayurvedic assessment parameters.</p></div>
+              </div>
+              <div class="flex gap-4">
+                <div class="mt-1 w-9 h-9 rounded-lg bg-teal/10 text-teal grid place-items-center shrink-0"><i data-lucide="check" class="w-4 h-4"></i></div>
+                <div><h4 class="font-bold">Physician remains in control</h4><p class="mt-1 text-sm text-slate-500">Generated summaries are meant for review, editing and confirmation.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cta  -->
+    <section id="contact" class="py-24 bg-cream">
+      <div class="max-w-5xl mx-auto px-5 sm:px-8">
+        <div class="relative overflow-hidden rounded-[2rem] bg-teal p-8 sm:p-12 lg:p-16 text-white text-center">
+          <div class="absolute -top-24 -right-20 w-72 h-72 rounded-full bg-white/10"></div>
+          <div class="absolute -bottom-32 -left-20 w-80 h-80 rounded-full bg-black/10"></div>
+          <div class="relative">
+            <div class="mx-auto w-14 h-14 rounded-2xl bg-white/15 grid place-items-center">
+              <i data-lucide="leaf" class="w-7 h-7"></i>
+            </div>
+            <h2 class="mt-6 text-3xl sm:text-4xl font-bold">Ready to simplify patient intake?</h2>
+            <p class="mt-4 max-w-xl mx-auto text-white/75 leading-7">Start with a structured case. Let the physician focus on the patient, not repetitive documentation.</p>
+            <button data-action="signup" class="mt-8 px-6 py-3.5 rounded-xl bg-white text-teal font-bold hover:bg-slate-50 transition">
+              Start your case journey
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-ink text-white">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-12">
+      <div class="grid md:grid-cols-3 gap-10">
+        <div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-teal grid place-items-center"><i data-lucide="leaf" class="w-5 h-5"></i></div>
+            <div class="text-lg font-bold">Ayur<span class="text-teal-300">Scribe</span></div>
+          </div>
+          <p class="mt-4 max-w-sm text-sm text-white/50 leading-6">A prototype for intelligent, structured and patient-friendly Ayurvedic case intake.</p>
+        </div>
+
+        <div>
+          <p class="text-sm font-semibold">Navigation</p>
+          <div class="mt-4 grid grid-cols-2 gap-3 text-sm text-white/50">
+            <a href="#home" class="hover:text-white">Home</a>
+            <a href="#features" class="hover:text-white">Features</a>
+            <a href="#how-it-works" class="hover:text-white">How it works</a>
+            <a href="#about" class="hover:text-white">About</a>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-sm font-semibold">Note</p>
+          <p class="mt-4 text-sm text-white/50 leading-6">This demonstrates the intended user journey. Authentication, database storage and  OCR  can be connected in the next development phase.</p>
+        </div>
+      </div>
+
+      <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between gap-3 text-xs text-white/35">
+        <span>© 2026 AyurScribe | Prototype</span>
+        <span>Designed for a modern healthcare experience.</span>
+      </div>
+    </div>
+  </footer>
+
+ 
+  <div id="modal" class="hidden fixed inset-0 z-[100] bg-ink/50 backdrop-blur-sm p-5">
+    <div class="min-h-full grid place-items-center">
+      <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl p-7 relative">
+        <button id="closeModal" class="absolute top-4 right-4 p-2 rounded-lg hover:bg-slate-100">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+        <div class="w-11 h-11 rounded-xl bg-teal/10 text-teal grid place-items-center">
+          <i data-lucide="user-round" class="w-5 h-5"></i>
+        </div>
+        <h3 id="modalTitle" class="mt-5 text-2xl font-bold">Welcome</h3>
+        <p class="mt-2 text-sm text-slate-500">Authentication is temporarily Unavailable. Real Authentication will be connected later.</p>
+
+        <form id="demoForm" class="mt-6 space-y-4">
+          <!-- <input class="w-full px-4 py-3 rounded-xl border border-slate-200 outline-none focus:border-teal focus:ring-4 focus:ring-teal/10" placeholder="Email address" type="email" required /> -->
+          <!-- <input class="w-full px-4 py-3 rounded-xl border border-slate-200 outline-none focus:border-teal focus:ring-4 focus:ring-teal/10" placeholder="Password" type="password" required /> -->
+          <!-- <button class="w-full py-3.5 rounded-xl bg-teal text-white font-semibold hover:bg-tealDark transition">Continue</button> -->
+          <button class="w-full py-3.5 rounded-xl bg-teal text-white font-semibold hover:bg-tealDark transition">Back to Home</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
