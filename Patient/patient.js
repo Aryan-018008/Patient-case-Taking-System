@@ -1,11 +1,11 @@
-/* =========================================================
-   AYURSCRIBE — PATIENT DASHBOARD
-========================================================= */
+// Don't think to manipulate this code as it is Asynchronous.
+// Thank You for reading this
 
 
-/* =========================================================
-   INITIALIZE LUCIDE ICONS
-========================================================= */
+
+//Patient Dashboard
+
+// Lucide Initiate
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -17,9 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-/* =========================================================
-   SECTION NAVIGATION
-========================================================= */
+// Section navigation
 
 const sidebarItems = document.querySelectorAll("[data-section]");
 const sectionButtons = document.querySelectorAll("[data-section-button]");
@@ -52,7 +50,7 @@ const sectionTitles = {
 
 function showSection(sectionName) {
 
-    /* Hide all sections */
+    // Section Hide
 
     dashboardSections.forEach(section => {
 
@@ -61,7 +59,7 @@ function showSection(sectionName) {
     });
 
 
-    /* Show selected section */
+    // Show selected section 
 
     const selectedSection =
         document.getElementById(`section-${sectionName}`);
@@ -73,7 +71,7 @@ function showSection(sectionName) {
     }
 
 
-    /* Update sidebar active state */
+    // Update sidebar active state 
 
     sidebarItems.forEach(item => {
 
@@ -88,7 +86,7 @@ function showSection(sectionName) {
     });
 
 
-    /* Update top title */
+    // Update top title
 
     if (topTitle) {
 
@@ -98,28 +96,22 @@ function showSection(sectionName) {
     }
 
 
-    /* Close mobile sidebar */
+    
 
     closeMobileSidebar();
 
 
-    /* Scroll to top */
-
+    //Scroll to top
     window.scrollTo({
-
         top: 0,
-
         behavior: "smooth"
-
     });
 
 }
 
 
 
-/* =========================================================
-   SIDEBAR BUTTONS
-========================================================= */
+//Sidebar
 
 sidebarItems.forEach(item => {
 
@@ -135,9 +127,7 @@ sidebarItems.forEach(item => {
 
 
 
-/* =========================================================
-   DASHBOARD CARD BUTTONS
-========================================================= */
+// Cards
 
 sectionButtons.forEach(button => {
 
@@ -154,9 +144,7 @@ sectionButtons.forEach(button => {
 
 
 
-/* =========================================================
-   MOBILE SIDEBAR
-========================================================= */
+// Responsive Sidebar
 
 const menuBtn =
     document.getElementById("menuBtn");
@@ -217,9 +205,7 @@ if (sidebarOverlay) {
 
 
 
-/* =========================================================
-   NEW CASE FORM
-========================================================= */
+// new-case
 
 const newCaseForm =
     document.getElementById("newCaseForm");
@@ -256,7 +242,7 @@ if (newCaseForm) {
 
         const existingCases =
             JSON.parse(
-                localStorage.getItem("ayurScribeCases")
+                localStorage.getItem("AyurCaseCases")
             ) || [];
 
 
@@ -266,7 +252,7 @@ if (newCaseForm) {
         /* Save */
 
         localStorage.setItem(
-            "ayurScribeCases",
+            "AyurCaseCases",
             JSON.stringify(existingCases)
         );
 
@@ -287,9 +273,7 @@ if (newCaseForm) {
 
 
 
-/* =========================================================
-   REPORT UPLOAD UI
-========================================================= */
+// Report Upload
 
 const reportInput =
     document.getElementById("reportInput");
@@ -380,9 +364,7 @@ if (reportInput) {
 
 
 
-/* =========================================================
-   AYURVEDIC ASSESSMENT FORM
-========================================================= */
+// Ayurvedic Assessment Form 
 
 const ayurvedicForm =
     document.getElementById("ayurvedicForm");
@@ -396,7 +378,7 @@ if (ayurvedicForm) {
         event.preventDefault();
 
 
-        /* Browser validation */
+        // Browser validation
 
         if (!ayurvedicForm.checkValidity()) {
 
@@ -411,7 +393,7 @@ if (ayurvedicForm) {
             new FormData(ayurvedicForm);
 
 
-        /* Collect symptoms */
+        // Collect symptoms
 
         const symptoms =
             Array.from(
@@ -422,7 +404,7 @@ if (ayurvedicForm) {
 
 
 
-        /* Create assessment object */
+        // Create assessment object 
 
         const assessment = {
 
@@ -468,7 +450,7 @@ if (ayurvedicForm) {
                 formData.get("stress"),
 
 
-            /* Dashavidha */
+            // Dashavidha
 
             prakriti:
                 formData.get("dashPrakriti"),
@@ -511,29 +493,23 @@ if (ayurvedicForm) {
 
 
 
-        /* =================================================
-           SAVE TO LOCAL STORAGE
-        ================================================== */
+        // Local Storage Save 
 
         localStorage.setItem(
-            "ayurScribeAyurvedicAssessment",
+            "AyurCaseAyurvedicAssessment",
             JSON.stringify(assessment)
         );
 
 
 
-        /* =================================================
-           SHOW SUCCESS MESSAGE
-        ================================================== */
+        // Toastify alert on success 
 
         showToast(
             "Ayurvedic assessment submitted successfully."
         );
 
 
-        /* =================================================
-           CHANGE BUTTON TEXT
-        ================================================== */
+        // Change Buttton 
 
         const submitButton =
             ayurvedicForm.querySelector(
@@ -557,9 +533,7 @@ if (ayurvedicForm) {
         }
 
 
-        /* =================================================
-           UPDATE PROGRESS
-        ================================================== */
+        
 
         updateAssessmentProgress();
 
@@ -569,9 +543,7 @@ if (ayurvedicForm) {
 
 
 
-/* =========================================================
-   ASSESSMENT PROGRESS
-========================================================= */
+// Continuing Assessment 
 
 function updateAssessmentProgress() {
 
@@ -713,9 +685,7 @@ function updateAssessmentProgress() {
 
 
 
-/* =========================================================
-   WATCH ASSESSMENT FORM
-========================================================= */
+// Assessment Form 
 
 if (ayurvedicForm) {
 
@@ -733,9 +703,7 @@ if (ayurvedicForm) {
 
 
 
-/* =========================================================
-   CASE HISTORY
-========================================================= */
+// History (Prev. Case) 
 
 function loadCaseHistory() {
 
@@ -748,7 +716,7 @@ function loadCaseHistory() {
 
     const cases =
         JSON.parse(
-            localStorage.getItem("ayurScribeCases")
+            localStorage.getItem("AyurCaseCases")
         ) || [];
 
 
@@ -870,9 +838,7 @@ function loadCaseHistory() {
 
 
 
-/* =========================================================
-   TOAST
-========================================================= */
+// Toastify 
 
 function showToast(message) {
 
@@ -904,9 +870,7 @@ function showToast(message) {
 
 
 
-/* =========================================================
-   FILE SIZE
-========================================================= */
+// File Size 
 
 function formatFileSize(bytes) {
 
@@ -946,9 +910,7 @@ function formatFileSize(bytes) {
 
 
 
-/* =========================================================
-   SECURITY — BASIC HTML ESCAPE
-========================================================= */
+// Escape @ HTml
 
 function escapeHTML(value) {
 
@@ -970,15 +932,11 @@ function escapeHTML(value) {
 
 
 
-/* =========================================================
-   LOAD HISTORY ON PAGE LOAD
-========================================================= */
+// Page Load
 
 loadCaseHistory();
 
 
-/* =========================================================
-   INITIAL ASSESSMENT PROGRESS
-========================================================= */
+// Intial progress 
 
 updateAssessmentProgress();

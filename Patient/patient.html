@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Patient Dashboard — AyurScribe</title>
+    <title>Patient Dashboard — AyurCase</title>
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS + CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
@@ -103,25 +103,21 @@
 <body class="font-sans antialiased">
 
 
-    <!-- =========================================================
-         MOBILE OVERLAY
-    ========================================================== -->
+    <!-- Mobile Show -->
 
     <div id="sidebarOverlay"
          class="hidden fixed inset-0 bg-ink/40 backdrop-blur-sm z-40 md:hidden">
     </div>
 
 
-    <!-- =========================================================
-         SIDEBAR
-    ========================================================== -->
+    <!-- Sidebar -->
 
     <aside id="sidebar"
            class="mobile-sidebar fixed md:translate-x-0 left-0 top-0 bottom-0
                   w-72 bg-white border-r border-slate-200
                   z-50 flex flex-col">
 
-        <!-- BRAND -->
+        <!-- Brand -->
 
         <div class="h-20 px-6 border-b border-slate-100
                     flex items-center">
@@ -141,7 +137,7 @@
                 <div>
 
                     <div class="text-lg font-bold tracking-tight text-ink">
-                        Ayur<span class="text-teal">Scribe</span>
+                        Ayur<span class="text-teal">Case</span>
                     </div>
 
                     <div class="text-[10px] uppercase tracking-[.18em] text-slate-400">
@@ -155,7 +151,7 @@
         </div>
 
 
-        <!-- NAVIGATION -->
+        <!-- Navigation -->
 
         <nav class="flex-1 px-4 py-6 overflow-y-auto">
 
@@ -272,7 +268,7 @@
         </nav>
 
 
-        <!-- USER -->
+        <!-- User -->
 
         <div class="p-4 border-t border-slate-100">
 
@@ -308,16 +304,12 @@
 
 
 
-    <!-- =========================================================
-         MAIN AREA
-    ========================================================== -->
+    <!-- Main -->
 
     <div class="md:ml-72 min-h-screen">
 
 
-        <!-- =====================================================
-             TOP BAR
-        ====================================================== -->
+        <!-- Top  -->
 
         <header class="sticky top-0 z-30 h-20
                        bg-white/90 backdrop-blur-md
@@ -327,7 +319,7 @@
                         flex items-center justify-between">
 
 
-                <!-- MOBILE MENU -->
+                <!-- Mobile Menu -->
 
                 <button id="menuBtn"
                         class="md:hidden w-10 h-10
@@ -340,7 +332,7 @@
                 </button>
 
 
-                <!-- PAGE TITLE -->
+                <!-- Page Title -->
 
                 <div class="hidden md:block">
 
@@ -357,7 +349,7 @@
                 </div>
 
 
-                <!-- RIGHT -->
+                <!-- Right -->
 
                 <div class="flex items-center gap-3 ml-auto">
 
@@ -379,7 +371,7 @@
                                     grid place-items-center
                                     text-sm font-bold">
 
-                            A
+                            
 
                         </div>
 
@@ -397,21 +389,17 @@
 
 
 
-        <!-- =====================================================
-             CONTENT
-        ====================================================== -->
+        <!-- Content -->
 
         <main class="p-5 sm:p-8">
 
 
-            <!-- =================================================
-                 DASHBOARD
-            ================================================== -->
+            <!-- Dashboard -->
 
             <section id="section-dashboard"
                      class="dashboard-section">
 
-                <!-- WELCOME -->
+                <!--Welcome -->
 
                 <div class="rounded-3xl bg-teal
                             text-white p-7 sm:p-10
@@ -458,12 +446,12 @@
                 </div>
 
 
-                <!-- FEATURE CARDS -->
+                <!-- Feature Card -->
 
                 <div class="mt-7 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
 
 
-                    <!-- NEW CASE -->
+                   
 
                     <button
                         data-section-button="new-case"
@@ -492,7 +480,7 @@
                     </button>
 
 
-                    <!-- VOICE -->
+                    <!-- Voice -->
 
                     <button
                         data-section-button="voice"
@@ -520,7 +508,7 @@
                     </button>
 
 
-                    <!-- FORM -->
+                    <!-- Form -->
 
                     <button
                         data-section-button="form"
@@ -548,7 +536,7 @@
                     </button>
 
 
-                    <!-- REPORTS -->
+                    <!-- Report -->
 
                     <button
                         data-section-button="reports"
@@ -577,7 +565,7 @@
                     </button>
 
 
-                    <!-- ASSESSMENT -->
+                    <!-- Assessment -->
 
                     <button
                         data-section-button="assessment"
@@ -605,7 +593,7 @@
                     </button>
 
 
-                    <!-- HISTORY -->
+                    <!-- History -->
 
                     <button
                         data-section-button="history"
@@ -638,9 +626,7 @@
 
 
 
-            <!-- =================================================
-                 START NEW CASE
-            ================================================== -->
+            <!-- New Case -->
 
             <section id="section-new-case"
                      class="dashboard-section hidden">
@@ -755,9 +741,7 @@
 
 
 
-            <!-- =================================================
-                 VOICE CASE TAKING
-            ================================================== -->
+            <!-- Voice Note  -->
 
             <section id="section-voice"
                      class="dashboard-section hidden">
@@ -815,9 +799,7 @@
 
 
 
-            <!-- =================================================
-                 TOUCH / FORM INPUT
-            ================================================== -->
+            <!-- Input Form -->
 
             <section id="section-form"
                      class="dashboard-section hidden">
@@ -912,7 +894,6 @@
                                        font-semibold">
 
                                 Save Information
-
                             </button>
 
                         </div>
@@ -925,9 +906,7 @@
 
 
 
-            <!-- =================================================
-                 UPLOAD REPORTS
-            ================================================== -->
+            <!-- Report Upload -->
 
             <section id="section-reports"
                      class="dashboard-section hidden">
@@ -1006,16 +985,14 @@
 
 
 
-            <!-- =================================================
-                 AYURVEDIC ASSESSMENT
-            ================================================== -->
+            <!-- Ayurvedic Assessment -->
 
             <section id="section-assessment"
                      class="dashboard-section hidden assessment-section">
 
                 <div class="max-w-5xl">
 
-                    <!-- HEADER -->
+                    <!-- Header -->
 
                     <div>
 
@@ -1038,7 +1015,7 @@
                     </div>
 
 
-                    <!-- PROGRESS -->
+                    <!-- Progress -->
 
                     <div class="mt-7 bg-white border border-slate-200
                                 rounded-2xl p-5">
@@ -1079,15 +1056,13 @@
 
 
 
-                    <!-- FORM -->
+                    <!-- Form -->
 
                     <form id="ayurvedicForm"
                           class="mt-7 space-y-6">
 
 
-                        <!-- =====================================
-                             SECTION 1 — BASIC
-                        ====================================== -->
+                        <!-- sec-1 -->
 
                         <div class="bg-white border border-slate-200
                                     rounded-2xl p-6 sm:p-8">
@@ -1183,9 +1158,7 @@
 
 
 
-                        <!-- =====================================
-                             SECTION 2 — PRAKRITI
-                        ====================================== -->
+                        <!-- sec-2 -->
 
                         <div class="bg-white border border-slate-200
                                     rounded-2xl p-6 sm:p-8">
@@ -1220,7 +1193,7 @@
                             <div class="mt-7 space-y-7">
 
 
-                                <!-- BODY FRAME -->
+                                <!-- Body Frame -->
 
                                 <div>
 
@@ -1285,7 +1258,7 @@
 
 
 
-                                <!-- SKIN -->
+                                <!-- Skin -->
 
                                 <div>
 
@@ -1350,7 +1323,7 @@
 
 
 
-                                <!-- TEMPERATURE -->
+                                <!-- Temp. -->
 
                                 <div>
 
@@ -1393,9 +1366,7 @@
 
 
 
-                        <!-- =====================================
-                             SECTION 3 — DIGESTION
-                        ====================================== -->
+                        <!-- sec-3 -->
 
                         <div class="bg-white border border-slate-200
                                     rounded-2xl p-6 sm:p-8">
@@ -1491,9 +1462,7 @@
 
 
 
-                        <!-- =====================================
-                             SECTION 4 — SLEEP
-                        ====================================== -->
+                        <!-- sec-4 -->
 
                         <div class="bg-white border border-slate-200
                                     rounded-2xl p-6 sm:p-8">
@@ -1588,9 +1557,7 @@
 
 
 
-                        <!-- =====================================
-                             SECTION 5 — BOWEL
-                        ====================================== -->
+                        <!-- sec-5 -->
 
                         <div class="bg-white border border-slate-200
                                     rounded-2xl p-6 sm:p-8">
@@ -1652,9 +1619,7 @@
 
 
 
-                        <!-- =====================================
-                             SECTION 6 — LIFESTYLE
-                        ====================================== -->
+                        <!-- sec-6 -->
 
                         <div class="bg-white border border-slate-200
                                     rounded-2xl p-6 sm:p-8">
@@ -1748,9 +1713,7 @@
 
 
 
-                        <!-- =====================================
-                             SECTION 7 — DASHAVIDHA
-                        ====================================== -->
+                        <!-- Sec 7 — DASHAVIDHA -->
 
                         <div class="bg-white border border-slate-200
                                     rounded-2xl p-6 sm:p-8">
@@ -1785,7 +1748,7 @@
                             <div class="mt-7 space-y-5">
 
 
-                                <!-- PRAKRITI -->
+                                <!-- Prakriti-->
 
                                 <div>
 
@@ -1818,7 +1781,7 @@
                                 </div>
 
 
-                                <!-- VIKRITI -->
+                                <!-- Vikriti -->
 
                                 <div>
 
@@ -1841,7 +1804,7 @@
                                 </div>
 
 
-                                <!-- SARA -->
+                                <!-- Sara -->
 
                                 <div>
 
@@ -1871,7 +1834,7 @@
                                 </div>
 
 
-                                <!-- SAMHANANA -->
+                                <!-- Samhanana -->
 
                                 <div>
 
@@ -1901,7 +1864,7 @@
                                 </div>
 
 
-                                <!-- PRAMANA -->
+                                <!-- Pramana -->
 
                                 <div>
 
@@ -1930,7 +1893,7 @@
                                 </div>
 
 
-                                <!-- SATMYA -->
+                                <!-- Satmya -->
 
                                 <div>
 
@@ -1960,7 +1923,7 @@
                                 </div>
 
 
-                                <!-- SATTVA -->
+                                <!-- Sattva-->
 
                                 <div>
 
@@ -1990,7 +1953,7 @@
                                 </div>
 
 
-                                <!-- AHARA SHAKTI -->
+                                <!-- Ahara Shakti -->
 
                                 <div>
 
@@ -2020,7 +1983,7 @@
                                 </div>
 
 
-                                <!-- VYAYAMA -->
+                                <!-- vyayama -->
 
                                 <div>
 
@@ -2050,7 +2013,7 @@
                                 </div>
 
 
-                                <!-- VAYA -->
+                                <!-- Vaya -->
 
                                 <div>
 
@@ -2084,9 +2047,7 @@
 
 
 
-                        <!-- =====================================
-                             SECTION 8 — CURRENT SYMPTOMS
-                        ====================================== -->
+                        <!-- sec-8 -->
 
                         <div class="bg-white border border-slate-200
                                     rounded-2xl p-6 sm:p-8">
@@ -2229,9 +2190,7 @@
 
 
 
-                        <!-- =====================================
-                             SECTION 9 — ADDITIONAL NOTES
-                        ====================================== -->
+                        <!-- sec-9 -->
 
                         <div class="bg-white border border-slate-200
                                     rounded-2xl p-6 sm:p-8">
@@ -2277,7 +2236,7 @@
 
 
 
-                        <!-- SUBMIT -->
+                        <!-- Submission -->
 
                         <div class="flex flex-col sm:flex-row
                                     items-center justify-between gap-4
@@ -2321,9 +2280,7 @@
 
 
 
-            <!-- =================================================
-                 CASE HISTORY
-            ================================================== -->
+            <!-- case-history -->
 
             <section id="section-history"
                      class="dashboard-section hidden">
@@ -2390,9 +2347,7 @@
 
 
 
-    <!-- =========================================================
-         TOAST
-    ========================================================== -->
+    <!-- toastify -->
 
     <div id="toast"
          class="fixed bottom-5 right-5
@@ -2404,7 +2359,7 @@
 
 
 
-    <!-- JAVASCRIPT -->
+    
 
     <script src="patient.js"></script>
 
