@@ -1,0 +1,2413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Dashboard — AyurScribe</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+                    },
+
+                    colors: {
+                        ink: '#172321',
+                        teal: '#0F766E',
+                        tealDark: '#115E59',
+                        sage: '#84A98C',
+                        cream: '#F7FAF8'
+                    },
+
+                    boxShadow: {
+                        soft: '0 20px 60px rgba(15, 118, 110, 0.10)',
+                        card: '0 12px 35px rgba(23, 35, 33, 0.07)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #F7FAF8;
+            color: #172321;
+        }
+
+        .sidebar-item {
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-item:hover {
+            transform: translateX(2px);
+        }
+
+        .sidebar-item.active {
+            background: rgba(15, 118, 110, 0.10);
+            color: #0F766E;
+        }
+
+        .dashboard-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(23, 35, 33, 0.08);
+        }
+
+        .assessment-section {
+            scroll-margin-top: 100px;
+        }
+
+        .custom-radio {
+            transition: all 0.2s ease;
+        }
+
+        .custom-radio:has(input:checked) {
+            border-color: rgba(15, 118, 110, 0.45);
+            background: rgba(15, 118, 110, 0.05);
+        }
+
+        @media (max-width: 767px) {
+            .mobile-sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.25s ease;
+            }
+
+            .mobile-sidebar.open {
+                transform: translateX(0);
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body class="font-sans antialiased">
+
+
+    <!-- =========================================================
+         MOBILE OVERLAY
+    ========================================================== -->
+
+    <div id="sidebarOverlay"
+         class="hidden fixed inset-0 bg-ink/40 backdrop-blur-sm z-40 md:hidden">
+    </div>
+
+
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================== -->
+
+    <aside id="sidebar"
+           class="mobile-sidebar fixed md:translate-x-0 left-0 top-0 bottom-0
+                  w-72 bg-white border-r border-slate-200
+                  z-50 flex flex-col">
+
+        <!-- BRAND -->
+
+        <div class="h-20 px-6 border-b border-slate-100
+                    flex items-center">
+
+            <a href="../index.html"
+               class="flex items-center gap-3">
+
+                <div class="w-10 h-10 rounded-xl
+                            bg-teal text-white
+                            grid place-items-center shadow-lg shadow-teal/20">
+
+                    <i data-lucide="leaf"
+                       class="w-5 h-5"></i>
+
+                </div>
+
+                <div>
+
+                    <div class="text-lg font-bold tracking-tight text-ink">
+                        Ayur<span class="text-teal">Scribe</span>
+                    </div>
+
+                    <div class="text-[10px] uppercase tracking-[.18em] text-slate-400">
+                        Patient Portal
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="flex-1 px-4 py-6 overflow-y-auto">
+
+            <p class="px-3 mb-3 text-[10px] font-bold
+                      uppercase tracking-[.18em] text-slate-400">
+                Patient Dashboard
+            </p>
+
+
+            <!-- Dashboard -->
+
+            <button
+                data-section="dashboard"
+                class="sidebar-item active w-full flex items-center gap-3
+                       px-4 py-3 rounded-xl text-sm font-semibold">
+
+                <i data-lucide="layout-dashboard"
+                   class="w-5 h-5"></i>
+
+                Dashboard
+
+            </button>
+
+
+            <!-- Start New Case -->
+
+            <button
+                data-section="new-case"
+                class="sidebar-item w-full flex items-center gap-3
+                       px-4 py-3 rounded-xl text-sm font-medium text-slate-600">
+
+                <i data-lucide="file-plus-2"
+                   class="w-5 h-5"></i>
+
+                Start New Case
+
+            </button>
+
+
+            <!-- Voice -->
+
+            <button
+                data-section="voice"
+                class="sidebar-item w-full flex items-center gap-3
+                       px-4 py-3 rounded-xl text-sm font-medium text-slate-600">
+
+                <i data-lucide="mic"
+                   class="w-5 h-5"></i>
+
+                Voice Case Taking
+
+            </button>
+
+
+            <!-- Touch/Form -->
+
+            <button
+                data-section="form"
+                class="sidebar-item w-full flex items-center gap-3
+                       px-4 py-3 rounded-xl text-sm font-medium text-slate-600">
+
+                <i data-lucide="clipboard-list"
+                   class="w-5 h-5"></i>
+
+                Touch / Form Input
+
+            </button>
+
+
+            <!-- Reports -->
+
+            <button
+                data-section="reports"
+                class="sidebar-item w-full flex items-center gap-3
+                       px-4 py-3 rounded-xl text-sm font-medium text-slate-600">
+
+                <i data-lucide="file-up"
+                   class="w-5 h-5"></i>
+
+                Upload Reports
+
+            </button>
+
+
+            <!-- Ayurvedic Assessment -->
+
+            <button
+                data-section="assessment"
+                class="sidebar-item w-full flex items-center gap-3
+                       px-4 py-3 rounded-xl text-sm font-medium text-slate-600">
+
+                <i data-lucide="leaf"
+                   class="w-5 h-5"></i>
+
+                Ayurvedic Assessment
+
+            </button>
+
+
+            <!-- Case History -->
+
+            <button
+                data-section="history"
+                class="sidebar-item w-full flex items-center gap-3
+                       px-4 py-3 rounded-xl text-sm font-medium text-slate-600">
+
+                <i data-lucide="history"
+                   class="w-5 h-5"></i>
+
+                Case History
+
+            </button>
+
+        </nav>
+
+
+        <!-- USER -->
+
+        <div class="p-4 border-t border-slate-100">
+
+            <div class="flex items-center gap-3
+                        p-3 rounded-xl bg-cream">
+
+                <div class="w-10 h-10 rounded-full
+                            bg-teal text-white
+                            grid place-items-center
+                            font-bold">
+
+                    A
+
+                </div>
+
+                <div class="min-w-0">
+
+                    <p class="text-sm font-semibold truncate">
+                        Patient
+                    </p>
+
+                    <p class="text-xs text-slate-400">
+                        Patient account
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================================================
+         MAIN AREA
+    ========================================================== -->
+
+    <div class="md:ml-72 min-h-screen">
+
+
+        <!-- =====================================================
+             TOP BAR
+        ====================================================== -->
+
+        <header class="sticky top-0 z-30 h-20
+                       bg-white/90 backdrop-blur-md
+                       border-b border-slate-200">
+
+            <div class="h-full px-5 sm:px-8
+                        flex items-center justify-between">
+
+
+                <!-- MOBILE MENU -->
+
+                <button id="menuBtn"
+                        class="md:hidden w-10 h-10
+                               rounded-xl hover:bg-slate-100
+                               grid place-items-center">
+
+                    <i data-lucide="menu"
+                       class="w-5 h-5"></i>
+
+                </button>
+
+
+                <!-- PAGE TITLE -->
+
+                <div class="hidden md:block">
+
+                    <p class="text-xs font-semibold
+                              uppercase tracking-wider text-teal">
+                        Patient Portal
+                    </p>
+
+                    <h1 id="topTitle"
+                        class="text-xl font-bold text-ink">
+                        Dashboard
+                    </h1>
+
+                </div>
+
+
+                <!-- RIGHT -->
+
+                <div class="flex items-center gap-3 ml-auto">
+
+                    <button
+                        class="w-10 h-10 rounded-xl
+                               border border-slate-200
+                               grid place-items-center
+                               hover:bg-slate-50">
+
+                        <i data-lucide="bell"
+                           class="w-5 h-5 text-slate-600"></i>
+
+                    </button>
+
+                    <div class="hidden sm:flex items-center gap-2">
+
+                        <div class="w-9 h-9 rounded-full
+                                    bg-teal text-white
+                                    grid place-items-center
+                                    text-sm font-bold">
+
+                            A
+
+                        </div>
+
+                        <span class="text-sm font-semibold">
+                            Patient
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================================
+             CONTENT
+        ====================================================== -->
+
+        <main class="p-5 sm:p-8">
+
+
+            <!-- =================================================
+                 DASHBOARD
+            ================================================== -->
+
+            <section id="section-dashboard"
+                     class="dashboard-section">
+
+                <!-- WELCOME -->
+
+                <div class="rounded-3xl bg-teal
+                            text-white p-7 sm:p-10
+                            relative overflow-hidden">
+
+                    <div class="absolute -right-20 -top-20
+                                w-72 h-72 rounded-full
+                                bg-white/10">
+                    </div>
+
+                    <div class="relative">
+
+                        <p class="text-sm text-white/70 font-medium">
+                            Welcome back
+                        </p>
+
+                        <h2 class="mt-2 text-3xl sm:text-4xl
+                                   font-bold tracking-tight">
+                            Ready to start your case?
+                        </h2>
+
+                        <p class="mt-3 max-w-xl
+                                  text-white/75 leading-7">
+                            Complete your case information so your physician
+                            can review your history clearly and efficiently.
+                        </p>
+
+                        <button
+                            data-section-button="new-case"
+                            class="mt-7 inline-flex items-center gap-2
+                                   px-5 py-3 rounded-xl
+                                   bg-white text-teal
+                                   font-semibold hover:bg-slate-50">
+
+                            Start New Case
+
+                            <i data-lucide="arrow-right"
+                               class="w-4 h-4"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FEATURE CARDS -->
+
+                <div class="mt-7 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+
+                    <!-- NEW CASE -->
+
+                    <button
+                        data-section-button="new-case"
+                        class="dashboard-card text-left
+                               bg-white border border-slate-200
+                               rounded-2xl p-6">
+
+                        <div class="w-12 h-12 rounded-xl
+                                    bg-teal/10 text-teal
+                                    grid place-items-center">
+
+                            <i data-lucide="file-plus-2"
+                               class="w-6 h-6"></i>
+
+                        </div>
+
+                        <h3 class="mt-5 text-lg font-bold">
+                            Start New Case
+                        </h3>
+
+                        <p class="mt-2 text-sm text-slate-500 leading-6">
+                            Begin a new patient case and provide your basic
+                            consultation information.
+                        </p>
+
+                    </button>
+
+
+                    <!-- VOICE -->
+
+                    <button
+                        data-section-button="voice"
+                        class="dashboard-card text-left
+                               bg-white border border-slate-200
+                               rounded-2xl p-6">
+
+                        <div class="w-12 h-12 rounded-xl
+                                    bg-teal/10 text-teal
+                                    grid place-items-center">
+
+                            <i data-lucide="mic"
+                               class="w-6 h-6"></i>
+
+                        </div>
+
+                        <h3 class="mt-5 text-lg font-bold">
+                            Voice Case Taking
+                        </h3>
+
+                        <p class="mt-2 text-sm text-slate-500 leading-6">
+                            Answer guided questions using voice input.
+                        </p>
+
+                    </button>
+
+
+                    <!-- FORM -->
+
+                    <button
+                        data-section-button="form"
+                        class="dashboard-card text-left
+                               bg-white border border-slate-200
+                               rounded-2xl p-6">
+
+                        <div class="w-12 h-12 rounded-xl
+                                    bg-teal/10 text-teal
+                                    grid place-items-center">
+
+                            <i data-lucide="clipboard-list"
+                               class="w-6 h-6"></i>
+
+                        </div>
+
+                        <h3 class="mt-5 text-lg font-bold">
+                            Touch / Form Input
+                        </h3>
+
+                        <p class="mt-2 text-sm text-slate-500 leading-6">
+                            Enter symptoms and history using guided forms.
+                        </p>
+
+                    </button>
+
+
+                    <!-- REPORTS -->
+
+                    <button
+                        data-section-button="reports"
+                        class="dashboard-card text-left
+                               bg-white border border-slate-200
+                               rounded-2xl p-6">
+
+                        <div class="w-12 h-12 rounded-xl
+                                    bg-teal/10 text-teal
+                                    grid place-items-center">
+
+                            <i data-lucide="file-up"
+                               class="w-6 h-6"></i>
+
+                        </div>
+
+                        <h3 class="mt-5 text-lg font-bold">
+                            Upload Previous Reports
+                        </h3>
+
+                        <p class="mt-2 text-sm text-slate-500 leading-6">
+                            Upload prescriptions, reports and previous
+                            medical documents.
+                        </p>
+
+                    </button>
+
+
+                    <!-- ASSESSMENT -->
+
+                    <button
+                        data-section-button="assessment"
+                        class="dashboard-card text-left
+                               bg-white border border-slate-200
+                               rounded-2xl p-6">
+
+                        <div class="w-12 h-12 rounded-xl
+                                    bg-teal/10 text-teal
+                                    grid place-items-center">
+
+                            <i data-lucide="leaf"
+                               class="w-6 h-6"></i>
+
+                        </div>
+
+                        <h3 class="mt-5 text-lg font-bold">
+                            Ayurvedic Assessment
+                        </h3>
+
+                        <p class="mt-2 text-sm text-slate-500 leading-6">
+                            Complete your Ayurvedic assessment information.
+                        </p>
+
+                    </button>
+
+
+                    <!-- HISTORY -->
+
+                    <button
+                        data-section-button="history"
+                        class="dashboard-card text-left
+                               bg-white border border-slate-200
+                               rounded-2xl p-6">
+
+                        <div class="w-12 h-12 rounded-xl
+                                    bg-teal/10 text-teal
+                                    grid place-items-center">
+
+                            <i data-lucide="history"
+                               class="w-6 h-6"></i>
+
+                        </div>
+
+                        <h3 class="mt-5 text-lg font-bold">
+                            Case History
+                        </h3>
+
+                        <p class="mt-2 text-sm text-slate-500 leading-6">
+                            View your previous consultation cases.
+                        </p>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 START NEW CASE
+            ================================================== -->
+
+            <section id="section-new-case"
+                     class="dashboard-section hidden">
+
+                <div class="max-w-4xl">
+
+                    <p class="text-sm font-bold uppercase
+                              tracking-[.18em] text-teal">
+                        New Case
+                    </p>
+
+                    <h2 class="mt-2 text-3xl font-bold">
+                        Start a New Case
+                    </h2>
+
+                    <p class="mt-3 text-slate-500">
+                        Provide some basic information before beginning
+                        your consultation.
+                    </p>
+
+
+                    <div class="mt-8 bg-white border border-slate-200
+                                rounded-2xl p-6 sm:p-8">
+
+                        <form id="newCaseForm"
+                              class="space-y-6">
+
+                            <div class="grid sm:grid-cols-2 gap-5">
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Full Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="fullName"
+                                        required
+                                        placeholder="Enter your name"
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border border-slate-200
+                                               outline-none
+                                               focus:border-teal
+                                               focus:ring-4 focus:ring-teal/10">
+
+                                </div>
+
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Age
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        name="age"
+                                        min="1"
+                                        max="120"
+                                        required
+                                        placeholder="Enter age"
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border border-slate-200
+                                               outline-none
+                                               focus:border-teal
+                                               focus:ring-4 focus:ring-teal/10">
+
+                                </div>
+
+                            </div>
+
+
+                            <div>
+
+                                <label class="text-sm font-semibold">
+                                    Chief Complaint
+                                </label>
+
+                                <textarea
+                                    name="complaint"
+                                    rows="4"
+                                    required
+                                    placeholder="Briefly describe what brings you here..."
+                                    class="mt-2 w-full px-4 py-3
+                                           rounded-xl border border-slate-200
+                                           outline-none resize-none
+                                           focus:border-teal
+                                           focus:ring-4 focus:ring-teal/10"></textarea>
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                class="px-6 py-3 rounded-xl
+                                       bg-teal text-white
+                                       font-semibold
+                                       hover:bg-tealDark">
+
+                                Create Case
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 VOICE CASE TAKING
+            ================================================== -->
+
+            <section id="section-voice"
+                     class="dashboard-section hidden">
+
+                <div class="max-w-3xl">
+
+                    <p class="text-sm font-bold uppercase
+                              tracking-[.18em] text-teal">
+                        Voice Intake
+                    </p>
+
+                    <h2 class="mt-2 text-3xl font-bold">
+                        Voice Case Taking
+                    </h2>
+
+                    <p class="mt-3 text-slate-500">
+                        Answer the guided questions using your voice.
+                    </p>
+
+
+                    <div class="mt-8 bg-white border border-slate-200
+                                rounded-3xl p-8 text-center">
+
+                        <div class="mx-auto w-20 h-20 rounded-full
+                                    bg-teal/10 text-teal
+                                    grid place-items-center">
+
+                            <i data-lucide="mic"
+                               class="w-9 h-9"></i>
+
+                        </div>
+
+                        <h3 class="mt-6 text-xl font-bold">
+                            Voice input
+                        </h3>
+
+                        <p class="mt-2 text-sm text-slate-500">
+                            Voice recording integration can be connected
+                            in the next development phase.
+                        </p>
+
+                        <button
+                            class="mt-6 px-6 py-3 rounded-xl
+                                   bg-teal text-white font-semibold">
+
+                            Start Recording
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 TOUCH / FORM INPUT
+            ================================================== -->
+
+            <section id="section-form"
+                     class="dashboard-section hidden">
+
+                <div class="max-w-4xl">
+
+                    <p class="text-sm font-bold uppercase
+                              tracking-[.18em] text-teal">
+                        Guided Input
+                    </p>
+
+                    <h2 class="mt-2 text-3xl font-bold">
+                        Touch / Form Input
+                    </h2>
+
+                    <p class="mt-3 text-slate-500">
+                        Enter your symptoms and case information manually.
+                    </p>
+
+
+                    <div class="mt-8 bg-white border border-slate-200
+                                rounded-2xl p-6 sm:p-8">
+
+                        <div class="space-y-7">
+
+
+                            <div>
+
+                                <label class="text-sm font-semibold">
+                                    What is your main symptom?
+                                </label>
+
+                                <input
+                                    type="text"
+                                    placeholder="Example: Stomach discomfort"
+                                    class="mt-2 w-full px-4 py-3
+                                           rounded-xl border border-slate-200
+                                           outline-none focus:border-teal
+                                           focus:ring-4 focus:ring-teal/10">
+
+                            </div>
+
+
+                            <div>
+
+                                <label class="text-sm font-semibold">
+                                    How long have you experienced it?
+                                </label>
+
+                                <select
+                                    class="mt-2 w-full px-4 py-3
+                                           rounded-xl border border-slate-200
+                                           bg-white outline-none
+                                           focus:border-teal">
+
+                                    <option value="">
+                                        Select duration
+                                    </option>
+
+                                    <option>Less than 1 day</option>
+                                    <option>1–3 days</option>
+                                    <option>4–7 days</option>
+                                    <option>1–4 weeks</option>
+                                    <option>More than 1 month</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div>
+
+                                <label class="text-sm font-semibold">
+                                    Describe your symptoms
+                                </label>
+
+                                <textarea
+                                    rows="5"
+                                    placeholder="Describe your symptoms..."
+                                    class="mt-2 w-full px-4 py-3
+                                           rounded-xl border border-slate-200
+                                           outline-none resize-none
+                                           focus:border-teal
+                                           focus:ring-4 focus:ring-teal/10"></textarea>
+
+                            </div>
+
+
+                            <button
+                                class="px-6 py-3 rounded-xl
+                                       bg-teal text-white
+                                       font-semibold">
+
+                                Save Information
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 UPLOAD REPORTS
+            ================================================== -->
+
+            <section id="section-reports"
+                     class="dashboard-section hidden">
+
+                <div class="max-w-4xl">
+
+                    <p class="text-sm font-bold uppercase
+                              tracking-[.18em] text-teal">
+                        Documents
+                    </p>
+
+                    <h2 class="mt-2 text-3xl font-bold">
+                        Upload Previous Reports
+                    </h2>
+
+                    <p class="mt-3 text-slate-500">
+                        Upload previous prescriptions, reports or
+                        medical documents.
+                    </p>
+
+
+                    <div class="mt-8 bg-white border border-slate-200
+                                rounded-2xl p-8">
+
+                        <label
+                            class="border-2 border-dashed
+                                   border-slate-200 rounded-2xl
+                                   p-10 flex flex-col items-center
+                                   justify-center text-center
+                                   cursor-pointer
+                                   hover:border-teal/40
+                                   hover:bg-teal/5 transition">
+
+                            <div class="w-14 h-14 rounded-2xl
+                                        bg-teal/10 text-teal
+                                        grid place-items-center">
+
+                                <i data-lucide="upload"
+                                   class="w-6 h-6"></i>
+
+                            </div>
+
+                            <h3 class="mt-5 font-bold">
+                                Upload your documents
+                            </h3>
+
+                            <p class="mt-2 text-sm text-slate-500">
+                                PDF, JPG, PNG or other supported documents
+                            </p>
+
+                            <span class="mt-5 px-5 py-2.5
+                                         rounded-xl bg-teal
+                                         text-white text-sm font-semibold">
+                                Choose Files
+                            </span>
+
+                            <input
+                                id="reportInput"
+                                type="file"
+                                multiple
+                                accept=".pdf,.jpg,.jpeg,.png"
+                                class="hidden">
+
+                        </label>
+
+
+                        <div id="selectedFiles"
+                             class="mt-5 space-y-2">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 AYURVEDIC ASSESSMENT
+            ================================================== -->
+
+            <section id="section-assessment"
+                     class="dashboard-section hidden assessment-section">
+
+                <div class="max-w-5xl">
+
+                    <!-- HEADER -->
+
+                    <div>
+
+                        <p class="text-sm font-bold uppercase
+                                  tracking-[.18em] text-teal">
+                            Ayurvedic Assessment
+                        </p>
+
+                        <h2 class="mt-2 text-3xl sm:text-4xl font-bold">
+                            Ayurvedic Assessment Form
+                        </h2>
+
+                        <p class="mt-3 max-w-3xl text-slate-500 leading-7">
+                            Please answer the following questions based on
+                            your usual health, lifestyle and current
+                            experience. Your responses will be available
+                            for physician review.
+                        </p>
+
+                    </div>
+
+
+                    <!-- PROGRESS -->
+
+                    <div class="mt-7 bg-white border border-slate-200
+                                rounded-2xl p-5">
+
+                        <div class="flex items-center justify-between">
+
+                            <div>
+
+                                <p class="text-xs uppercase
+                                          tracking-wider text-slate-400">
+                                    Assessment
+                                </p>
+
+                                <p class="mt-1 text-sm font-semibold">
+                                    Complete all sections
+                                </p>
+
+                            </div>
+
+                            <span id="assessmentProgress"
+                                  class="text-sm font-bold text-teal">
+                                0%
+                            </span>
+
+                        </div>
+
+                        <div class="mt-4 h-2 bg-slate-100
+                                    rounded-full overflow-hidden">
+
+                            <div id="assessmentProgressBar"
+                                 class="h-full w-0 bg-teal
+                                        rounded-full transition-all">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- FORM -->
+
+                    <form id="ayurvedicForm"
+                          class="mt-7 space-y-6">
+
+
+                        <!-- =====================================
+                             SECTION 1 — BASIC
+                        ====================================== -->
+
+                        <div class="bg-white border border-slate-200
+                                    rounded-2xl p-6 sm:p-8">
+
+                            <div class="flex items-start gap-4">
+
+                                <div class="w-11 h-11 rounded-xl
+                                            bg-teal/10 text-teal
+                                            grid place-items-center shrink-0">
+
+                                    <i data-lucide="user"
+                                       class="w-5 h-5"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h3 class="text-xl font-bold">
+                                        1. Basic Information
+                                    </h3>
+
+                                    <p class="mt-1 text-sm text-slate-500">
+                                        General information about your
+                                        current health.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mt-7 grid sm:grid-cols-2 gap-6">
+
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Gender
+                                    </label>
+
+                                    <select
+                                        name="gender"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select gender
+                                        </option>
+
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Other</option>
+                                        <option>Prefer not to say</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Current energy level
+                                    </label>
+
+                                    <select
+                                        name="energy"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select energy level
+                                        </option>
+
+                                        <option>Low</option>
+                                        <option>Moderate</option>
+                                        <option>Good</option>
+                                        <option>Very high</option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =====================================
+                             SECTION 2 — PRAKRITI
+                        ====================================== -->
+
+                        <div class="bg-white border border-slate-200
+                                    rounded-2xl p-6 sm:p-8">
+
+                            <div class="flex items-start gap-4">
+
+                                <div class="w-11 h-11 rounded-xl
+                                            bg-teal/10 text-teal
+                                            grid place-items-center shrink-0">
+
+                                    <i data-lucide="leaf"
+                                       class="w-5 h-5"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h3 class="text-xl font-bold">
+                                        2. Prakriti-related Questions
+                                    </h3>
+
+                                    <p class="mt-1 text-sm text-slate-500">
+                                        Select the option that best describes
+                                        you generally.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mt-7 space-y-7">
+
+
+                                <!-- BODY FRAME -->
+
+                                <div>
+
+                                    <p class="text-sm font-semibold">
+                                        How would you describe your body frame?
+                                    </p>
+
+                                    <div class="mt-3 grid sm:grid-cols-3 gap-3">
+
+                                        <label class="custom-radio
+                                                      border border-slate-200
+                                                      rounded-xl p-4 cursor-pointer">
+
+                                            <input
+                                                type="radio"
+                                                name="bodyFrame"
+                                                value="Thin"
+                                                required
+                                                class="accent-teal">
+
+                                            <span class="ml-2 text-sm">
+                                                Thin
+                                            </span>
+
+                                        </label>
+
+
+                                        <label class="custom-radio
+                                                      border border-slate-200
+                                                      rounded-xl p-4 cursor-pointer">
+
+                                            <input
+                                                type="radio"
+                                                name="bodyFrame"
+                                                value="Medium">
+
+                                            <span class="ml-2 text-sm">
+                                                Medium
+                                            </span>
+
+                                        </label>
+
+
+                                        <label class="custom-radio
+                                                      border border-slate-200
+                                                      rounded-xl p-4 cursor-pointer">
+
+                                            <input
+                                                type="radio"
+                                                name="bodyFrame"
+                                                value="Broad">
+
+                                            <span class="ml-2 text-sm">
+                                                Broad
+                                            </span>
+
+                                        </label>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- SKIN -->
+
+                                <div>
+
+                                    <p class="text-sm font-semibold">
+                                        How would you describe your skin?
+                                    </p>
+
+                                    <div class="mt-3 grid sm:grid-cols-3 gap-3">
+
+                                        <label class="custom-radio
+                                                      border border-slate-200
+                                                      rounded-xl p-4 cursor-pointer">
+
+                                            <input
+                                                type="radio"
+                                                name="skin"
+                                                value="Dry"
+                                                required
+                                                class="accent-teal">
+
+                                            <span class="ml-2 text-sm">
+                                                Dry
+                                            </span>
+
+                                        </label>
+
+
+                                        <label class="custom-radio
+                                                      border border-slate-200
+                                                      rounded-xl p-4 cursor-pointer">
+
+                                            <input
+                                                type="radio"
+                                                name="skin"
+                                                value="Normal">
+
+                                            <span class="ml-2 text-sm">
+                                                Normal
+                                            </span>
+
+                                        </label>
+
+
+                                        <label class="custom-radio
+                                                      border border-slate-200
+                                                      rounded-xl p-4 cursor-pointer">
+
+                                            <input
+                                                type="radio"
+                                                name="skin"
+                                                value="Oily">
+
+                                            <span class="ml-2 text-sm">
+                                                Oily
+                                            </span>
+
+                                        </label>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- TEMPERATURE -->
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        What temperature do you generally
+                                        prefer?
+                                    </label>
+
+                                    <select
+                                        name="temperature"
+                                        required
+                                        class="mt-3 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select preference
+                                        </option>
+
+                                        <option>
+                                            I prefer warmth
+                                        </option>
+
+                                        <option>
+                                            Comfortable with both
+                                        </option>
+
+                                        <option>
+                                            I prefer cool surroundings
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =====================================
+                             SECTION 3 — DIGESTION
+                        ====================================== -->
+
+                        <div class="bg-white border border-slate-200
+                                    rounded-2xl p-6 sm:p-8">
+
+                            <div class="flex items-start gap-4">
+
+                                <div class="w-11 h-11 rounded-xl
+                                            bg-teal/10 text-teal
+                                            grid place-items-center shrink-0">
+
+                                    <i data-lucide="utensils"
+                                       class="w-5 h-5"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h3 class="text-xl font-bold">
+                                        3. Digestion & Appetite
+                                    </h3>
+
+                                    <p class="mt-1 text-sm text-slate-500">
+                                        Tell us about your usual digestive
+                                        experience.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mt-7 grid sm:grid-cols-2 gap-6">
+
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        How is your appetite?
+                                    </label>
+
+                                    <select
+                                        name="appetite"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Low</option>
+                                        <option>Moderate</option>
+                                        <option>Good</option>
+                                        <option>Very good</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        How is your digestion?
+                                    </label>
+
+                                    <select
+                                        name="digestion"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Good</option>
+                                        <option>Irregular</option>
+                                        <option>Poor</option>
+                                        <option>Very poor</option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =====================================
+                             SECTION 4 — SLEEP
+                        ====================================== -->
+
+                        <div class="bg-white border border-slate-200
+                                    rounded-2xl p-6 sm:p-8">
+
+                            <div class="flex items-start gap-4">
+
+                                <div class="w-11 h-11 rounded-xl
+                                            bg-teal/10 text-teal
+                                            grid place-items-center shrink-0">
+
+                                    <i data-lucide="moon"
+                                       class="w-5 h-5"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h3 class="text-xl font-bold">
+                                        4. Sleep
+                                    </h3>
+
+                                    <p class="mt-1 text-sm text-slate-500">
+                                        Describe your normal sleeping pattern.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mt-7 grid sm:grid-cols-2 gap-6">
+
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        How is your sleep?
+                                    </label>
+
+                                    <select
+                                        name="sleep"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Good</option>
+                                        <option>Light</option>
+                                        <option>Disturbed</option>
+                                        <option>Very poor</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Average sleep duration
+                                    </label>
+
+                                    <select
+                                        name="sleepDuration"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Less than 5 hours</option>
+                                        <option>5–6 hours</option>
+                                        <option>6–8 hours</option>
+                                        <option>More than 8 hours</option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =====================================
+                             SECTION 5 — BOWEL
+                        ====================================== -->
+
+                        <div class="bg-white border border-slate-200
+                                    rounded-2xl p-6 sm:p-8">
+
+                            <div class="flex items-start gap-4">
+
+                                <div class="w-11 h-11 rounded-xl
+                                            bg-teal/10 text-teal
+                                            grid place-items-center shrink-0">
+
+                                    <i data-lucide="activity"
+                                       class="w-5 h-5"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h3 class="text-xl font-bold">
+                                        5. Bowel Habits
+                                    </h3>
+
+                                    <p class="mt-1 text-sm text-slate-500">
+                                        Describe your usual bowel pattern.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mt-7">
+
+                                <label class="text-sm font-semibold">
+                                    How would you describe your bowel movement?
+                                </label>
+
+                                <select
+                                    name="bowel"
+                                    required
+                                    class="mt-2 w-full px-4 py-3
+                                           rounded-xl border
+                                           border-slate-200 bg-white
+                                           outline-none focus:border-teal">
+
+                                    <option value="">
+                                        Select
+                                    </option>
+
+                                    <option>Regular</option>
+                                    <option>Occasionally irregular</option>
+                                    <option>Constipation</option>
+                                    <option>Loose / frequent</option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =====================================
+                             SECTION 6 — LIFESTYLE
+                        ====================================== -->
+
+                        <div class="bg-white border border-slate-200
+                                    rounded-2xl p-6 sm:p-8">
+
+                            <div class="flex items-start gap-4">
+
+                                <div class="w-11 h-11 rounded-xl
+                                            bg-teal/10 text-teal
+                                            grid place-items-center shrink-0">
+
+                                    <i data-lucide="person-standing"
+                                       class="w-5 h-5"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h3 class="text-xl font-bold">
+                                        6. Lifestyle
+                                    </h3>
+
+                                    <p class="mt-1 text-sm text-slate-500">
+                                        Tell us about your daily activity.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mt-7 grid sm:grid-cols-2 gap-6">
+
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Physical activity
+                                    </label>
+
+                                    <select
+                                        name="activity"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Low</option>
+                                        <option>Moderate</option>
+                                        <option>High</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Stress level
+                                    </label>
+
+                                    <select
+                                        name="stress"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Low</option>
+                                        <option>Moderate</option>
+                                        <option>High</option>
+                                        <option>Very high</option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =====================================
+                             SECTION 7 — DASHAVIDHA
+                        ====================================== -->
+
+                        <div class="bg-white border border-slate-200
+                                    rounded-2xl p-6 sm:p-8">
+
+                            <div class="flex items-start gap-4">
+
+                                <div class="w-11 h-11 rounded-xl
+                                            bg-teal/10 text-teal
+                                            grid place-items-center shrink-0">
+
+                                    <i data-lucide="notebook-tabs"
+                                       class="w-5 h-5"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h3 class="text-xl font-bold">
+                                        7. Dashavidha Pariksha
+                                    </h3>
+
+                                    <p class="mt-1 text-sm text-slate-500">
+                                        Basic patient-reported information
+                                        related to the ten assessment areas.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mt-7 space-y-5">
+
+
+                                <!-- PRAKRITI -->
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Prakriti
+                                    </label>
+
+                                    <select
+                                        name="dashPrakriti"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select if known
+                                        </option>
+
+                                        <option>Vata</option>
+                                        <option>Pitta</option>
+                                        <option>Kapha</option>
+                                        <option>Vata-Pitta</option>
+                                        <option>Pitta-Kapha</option>
+                                        <option>Vata-Kapha</option>
+                                        <option>Not known</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- VIKRITI -->
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Vikriti / Current condition
+                                    </label>
+
+                                    <textarea
+                                        name="vikriti"
+                                        rows="3"
+                                        required
+                                        placeholder="Describe your current health condition or changes you have noticed..."
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200
+                                               resize-none outline-none
+                                               focus:border-teal
+                                               focus:ring-4 focus:ring-teal/10"></textarea>
+
+                                </div>
+
+
+                                <!-- SARA -->
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Sara
+                                    </label>
+
+                                    <select
+                                        name="sara"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Good</option>
+                                        <option>Moderate</option>
+                                        <option>Needs assessment</option>
+                                        <option>Not known</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- SAMHANANA -->
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Samhanana / Body build
+                                    </label>
+
+                                    <select
+                                        name="samhanana"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Well built</option>
+                                        <option>Moderate</option>
+                                        <option>Lean</option>
+                                        <option>Not known</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- PRAMANA -->
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Pramana / Body proportion
+                                    </label>
+
+                                    <select
+                                        name="pramana"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Proportionate</option>
+                                        <option>Moderate</option>
+                                        <option>Not sure</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- SATMYA -->
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Satmya / Adaptability
+                                    </label>
+
+                                    <select
+                                        name="satmya"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Good</option>
+                                        <option>Moderate</option>
+                                        <option>Low</option>
+                                        <option>Not sure</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- SATTVA -->
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Satva / Mental state
+                                    </label>
+
+                                    <select
+                                        name="satva"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select current experience
+                                        </option>
+
+                                        <option>Calm and stable</option>
+                                        <option>Usually stable</option>
+                                        <option>Often stressed</option>
+                                        <option>Frequently disturbed</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- AHARA SHAKTI -->
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Ahara Shakti / Appetite capacity
+                                    </label>
+
+                                    <select
+                                        name="aharaShakti"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Low</option>
+                                        <option>Moderate</option>
+                                        <option>Good</option>
+                                        <option>Very good</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- VYAYAMA -->
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Vyayama Shakti / Exercise capacity
+                                    </label>
+
+                                    <select
+                                        name="vyayama"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Low</option>
+                                        <option>Moderate</option>
+                                        <option>Good</option>
+                                        <option>High</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- VAYA -->
+
+                                <div>
+
+                                    <label class="text-sm font-semibold">
+                                        Vaya / Age group
+                                    </label>
+
+                                    <select
+                                        name="vaya"
+                                        required
+                                        class="mt-2 w-full px-4 py-3
+                                               rounded-xl border
+                                               border-slate-200 bg-white
+                                               outline-none focus:border-teal">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Young</option>
+                                        <option>Middle age</option>
+                                        <option>Older adult</option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =====================================
+                             SECTION 8 — CURRENT SYMPTOMS
+                        ====================================== -->
+
+                        <div class="bg-white border border-slate-200
+                                    rounded-2xl p-6 sm:p-8">
+
+                            <div class="flex items-start gap-4">
+
+                                <div class="w-11 h-11 rounded-xl
+                                            bg-teal/10 text-teal
+                                            grid place-items-center shrink-0">
+
+                                    <i data-lucide="clipboard-plus"
+                                       class="w-5 h-5"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h3 class="text-xl font-bold">
+                                        8. Current Symptoms
+                                    </h3>
+
+                                    <p class="mt-1 text-sm text-slate-500">
+                                        Select any symptoms you are currently
+                                        experiencing.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mt-7 grid sm:grid-cols-2
+                                        lg:grid-cols-3 gap-3">
+
+
+                                <label class="custom-radio
+                                              border border-slate-200
+                                              rounded-xl p-4 cursor-pointer">
+
+                                    <input
+                                        type="checkbox"
+                                        name="symptoms"
+                                        value="Bloating"
+                                        class="accent-teal">
+
+                                    <span class="ml-2 text-sm">
+                                        Bloating
+                                    </span>
+
+                                </label>
+
+
+                                <label class="custom-radio
+                                              border border-slate-200
+                                              rounded-xl p-4 cursor-pointer">
+
+                                    <input
+                                        type="checkbox"
+                                        name="symptoms"
+                                        value="Burning sensation"
+                                        class="accent-teal">
+
+                                    <span class="ml-2 text-sm">
+                                        Burning sensation
+                                    </span>
+
+                                </label>
+
+
+                                <label class="custom-radio
+                                              border border-slate-200
+                                              rounded-xl p-4 cursor-pointer">
+
+                                    <input
+                                        type="checkbox"
+                                        name="symptoms"
+                                        value="Dryness"
+                                        class="accent-teal">
+
+                                    <span class="ml-2 text-sm">
+                                        Dryness
+                                    </span>
+
+                                </label>
+
+
+                                <label class="custom-radio
+                                              border border-slate-200
+                                              rounded-xl p-4 cursor-pointer">
+
+                                    <input
+                                        type="checkbox"
+                                        name="symptoms"
+                                        value="Heaviness"
+                                        class="accent-teal">
+
+                                    <span class="ml-2 text-sm">
+                                        Heaviness
+                                    </span>
+
+                                </label>
+
+
+                                <label class="custom-radio
+                                              border border-slate-200
+                                              rounded-xl p-4 cursor-pointer">
+
+                                    <input
+                                        type="checkbox"
+                                        name="symptoms"
+                                        value="Fatigue"
+                                        class="accent-teal">
+
+                                    <span class="ml-2 text-sm">
+                                        Fatigue
+                                    </span>
+
+                                </label>
+
+
+                                <label class="custom-radio
+                                              border border-slate-200
+                                              rounded-xl p-4 cursor-pointer">
+
+                                    <input
+                                        type="checkbox"
+                                        name="symptoms"
+                                        value="Headache"
+                                        class="accent-teal">
+
+                                    <span class="ml-2 text-sm">
+                                        Headache
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =====================================
+                             SECTION 9 — ADDITIONAL NOTES
+                        ====================================== -->
+
+                        <div class="bg-white border border-slate-200
+                                    rounded-2xl p-6 sm:p-8">
+
+                            <div class="flex items-start gap-4">
+
+                                <div class="w-11 h-11 rounded-xl
+                                            bg-teal/10 text-teal
+                                            grid place-items-center shrink-0">
+
+                                    <i data-lucide="notebook-pen"
+                                       class="w-5 h-5"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h3 class="text-xl font-bold">
+                                        9. Additional Notes
+                                    </h3>
+
+                                    <p class="mt-1 text-sm text-slate-500">
+                                        Add anything else you would like
+                                        your physician to know.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <textarea
+                                name="additionalNotes"
+                                rows="5"
+                                class="mt-7 w-full px-4 py-3
+                                       rounded-xl border border-slate-200
+                                       resize-none outline-none
+                                       focus:border-teal
+                                       focus:ring-4 focus:ring-teal/10"
+                                placeholder="Write any additional information..."></textarea>
+
+                        </div>
+
+
+
+                        <!-- SUBMIT -->
+
+                        <div class="flex flex-col sm:flex-row
+                                    items-center justify-between gap-4
+                                    bg-white border border-slate-200
+                                    rounded-2xl p-5 sm:p-6">
+
+                            <div>
+
+                                <p class="font-semibold">
+                                    Ready to submit?
+                                </p>
+
+                                <p class="text-sm text-slate-500 mt-1">
+                                    Your responses will be saved for
+                                    physician review.
+                                </p>
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                class="w-full sm:w-auto
+                                       px-7 py-3.5 rounded-xl
+                                       bg-teal text-white
+                                       font-semibold
+                                       hover:bg-tealDark
+                                       transition">
+
+                                Submit Assessment
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 CASE HISTORY
+            ================================================== -->
+
+            <section id="section-history"
+                     class="dashboard-section hidden">
+
+                <div class="max-w-5xl">
+
+                    <p class="text-sm font-bold uppercase
+                              tracking-[.18em] text-teal">
+                        History
+                    </p>
+
+                    <h2 class="mt-2 text-3xl font-bold">
+                        Case History
+                    </h2>
+
+                    <p class="mt-3 text-slate-500">
+                        Your previous consultation cases will appear here.
+                    </p>
+
+
+                    <div id="caseHistory"
+                         class="mt-8 space-y-4">
+
+
+                        <div class="bg-white border border-slate-200
+                                    rounded-2xl p-6">
+
+                            <div class="flex items-center gap-4">
+
+                                <div class="w-11 h-11 rounded-xl
+                                            bg-teal/10 text-teal
+                                            grid place-items-center">
+
+                                    <i data-lucide="file-text"
+                                       class="w-5 h-5"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <p class="font-semibold">
+                                        No previous cases
+                                    </p>
+
+                                    <p class="text-sm text-slate-500 mt-1">
+                                        Your submitted cases will appear here.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         TOAST
+    ========================================================== -->
+
+    <div id="toast"
+         class="fixed bottom-5 right-5
+                hidden z-[100]
+                bg-ink text-white
+                px-5 py-3.5 rounded-xl
+                shadow-xl text-sm font-medium">
+    </div>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="patient.js"></script>
+
+</body>
+
+</html>
