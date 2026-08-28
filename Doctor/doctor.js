@@ -1,15 +1,16 @@
+// Don't edit anything
+// It has side effects
+// Thank You for reading till here.
+
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =========================================================
-       LUCIDE ICONS
-    ========================================================== */
+    //Lucide icon
 
     lucide.createIcons();
 
 
-    /* =========================================================
-       ELEMENTS
-    ========================================================== */
+    //Elements
 
     const sidebar = document.getElementById("sidebar");
     const sidebarOverlay = document.getElementById("sidebarOverlay");
@@ -23,9 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const toast = document.getElementById("toast");
 
 
-    /* =========================================================
-       SECTION TITLES
-    ========================================================== */
+    /* sections */
 
     const sectionTitles = {
 
@@ -43,9 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /* =========================================================
-       SHOW SECTION
-    ========================================================== */
+    /* show-section */
 
     function showSection(sectionName) {
 
@@ -107,9 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================================================
-       SIDEBAR NAVIGATION
-    ========================================================== */
+    // Sidebar Navigation
 
     sidebarItems.forEach(item => {
 
@@ -125,9 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* =========================================================
-       BUTTON NAVIGATION
-    ========================================================== */
+    // Button Navigation
 
     document
         .querySelectorAll("[data-section-button]")
@@ -145,14 +138,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
-    /* =========================================================
-       MOBILE SIDEBAR
-    ========================================================== */
+    // Mobile Sidebar
 
     function openMobileSidebar() {
 
         sidebar.classList.add("open");
-
         sidebarOverlay.classList.remove("hidden");
 
     }
@@ -161,16 +151,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function closeMobileSidebar() {
 
         sidebar.classList.remove("open");
-
         sidebarOverlay.classList.add("hidden");
-
-    }
+   }
 
 
     if (menuBtn) {
-
-        menuBtn.addEventListener("click", openMobileSidebar);
-
+       menuBtn.addEventListener("click", openMobileSidebar);
     }
 
 
@@ -180,34 +166,23 @@ document.addEventListener("DOMContentLoaded", () => {
             "click",
             closeMobileSidebar
         );
-
     }
 
 
-    /* =========================================================
-       PATIENT DATA
-    ========================================================== */
+    // Patient Data
 
     const patients = {
 
         rahul: {
 
             initials: "RS",
-
-            name: "Rahul Sharma",
-
+            name: "Rohit Sharma",
             caseId: "AYU-1024",
-
             age: "34 years",
-
             gender: "Male",
-
             blood: "B+",
-
             status: "Pending",
-
-            complaint:
-                "Patient reports recurring gastric discomfort and burning sensation after meals."
+            complaint:"Patient reports recurring gastric discomfort and burning sensation after meals."
 
         },
 
@@ -215,21 +190,13 @@ document.addEventListener("DOMContentLoaded", () => {
         priya: {
 
             initials: "PS",
-
             name: "Priya Singh",
-
             caseId: "AYU-1025",
-
             age: "29 years",
-
             gender: "Female",
-
             blood: "O+",
-
             status: "Reviewed",
-
-            complaint:
-                "Patient reports recurring headaches with occasional fatigue."
+            complaint:"Patient reports recurring headaches with occasional fatigue."
 
         },
 
@@ -237,21 +204,13 @@ document.addEventListener("DOMContentLoaded", () => {
         amit: {
 
             initials: "AK",
-
             name: "Amit Kumar",
-
             caseId: "AYU-1027",
-
             age: "41 years",
-
             gender: "Male",
-
             blood: "A+",
-
             status: "Pending",
-
-            complaint:
-                "Patient reports persistent fatigue and reduced energy during the day."
+            complaint: "Patient reports persistent fatigue and reduced energy during the day."
 
         },
 
@@ -259,21 +218,13 @@ document.addEventListener("DOMContentLoaded", () => {
         neha: {
 
             initials: "NP",
-
             name: "Neha Patel",
-
             caseId: "AYU-1030",
-
             age: "37 years",
-
             gender: "Female",
-
             blood: "AB+",
-
             status: "Pending",
-
-            complaint:
-                "Patient reports disturbed sleep and difficulty maintaining a regular sleep schedule."
+            complaint:"Patient reports disturbed sleep and difficulty maintaining a regular sleep schedule."
 
         }
 
@@ -283,9 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentPatient = patients.rahul;
 
 
-    /* =========================================================
-       LOAD PATIENT
-    ========================================================== */
+    // Patient Load
 
     function loadPatient(patientId) {
 
@@ -298,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentPatient = patient;
 
 
-        /* PROFILE */
+        // Profile
 
         const profileAvatar =
             document.getElementById("profileAvatar");
@@ -388,7 +337,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 patient.complaint;
 
 
-        /* CONFIRM CASE */
+        // Confirm Case
 
         const confirmCaseHeading =
             document.querySelector(
@@ -411,7 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 patient.name;
 
 
-        /* GO TO PROFILE */
+        /* Back to profile */
 
         showSection("profile");
 
@@ -423,9 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================================================
-       PATIENT CLICK
-    ========================================================== */
+    // Patient Click
 
     document
         .querySelectorAll("[data-patient]")
@@ -443,9 +390,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
-    /* =========================================================
-       PATIENT SEARCH
-    ========================================================== */
+    // Patient Search
 
     const patientSearch =
         document.getElementById("patientSearch");
@@ -496,9 +441,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================================================
-       SUMMARY FORM
-    ========================================================== */
+    // Summary Form
 
     const summaryForm =
         document.getElementById("summaryForm");
@@ -549,7 +492,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     );
 
                     return;
-
                 }
 
 
@@ -563,8 +505,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     doctorObservation.textContent =
                         impression;
-
-                }
+               }
 
 
                 showToast(
@@ -578,15 +519,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }, 500);
 
-            }
-        );
-
-    }
+            });
+         }
 
 
-    /* =========================================================
-       CONFIRM CASE
-    ========================================================== */
+    // Case-Confirm
 
     const confirmCaseBtn =
         document.getElementById(
@@ -643,7 +580,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                /* BUTTON */
+                // button
 
                 confirmCaseBtn.innerHTML = `
 
@@ -676,15 +613,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     `${patient.name}'s case has been confirmed.`
                 );
 
-            }
-        );
-
-    }
-
-
-    /* =========================================================
-       TOAST
-    ========================================================== */
+            });
+        }
+// Toastify
 
     let toastTimer;
 
@@ -692,35 +623,26 @@ document.addEventListener("DOMContentLoaded", () => {
     function showToast(message) {
 
         if (!toast) return;
-
-
         toast.textContent =
             message;
-
-
         toast.classList.remove(
             "hidden"
         );
-
 
         clearTimeout(toastTimer);
 
 
         toastTimer =
             setTimeout(() => {
-
-                toast.classList.add(
+            toast.classList.add(
                     "hidden"
                 );
 
             }, 3000);
+        }
 
-    }
 
-
-    /* =========================================================
-       INITIAL STATE
-    ========================================================== */
+    //Initial State
 
     showSection("dashboard");
 

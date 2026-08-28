@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Doctor Dashboard — AyurScribe</title>
+    <title>Doctor Dashboard — AyurCase</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -113,9 +113,7 @@
     </div>
 
 
-    <!-- =========================================================
-         SIDEBAR
-    ========================================================== -->
+    <!-- Sidebar -->
 
     <aside id="sidebar"
            class="mobile-sidebar fixed md:translate-x-0 left-0 top-0 bottom-0
@@ -123,7 +121,7 @@
                   z-50 flex flex-col">
 
 
-        <!-- BRAND -->
+        <!-- Brand -->
 
         <div class="h-20 px-6 border-b border-slate-100
                     flex items-center">
@@ -144,7 +142,7 @@
                 <div>
 
                     <div class="text-lg font-bold tracking-tight text-ink">
-                        Ayur<span class="text-teal">Scribe</span>
+                        Ayur<span class="text-teal">Case</span>
                     </div>
 
                     <div class="text-[10px] uppercase
@@ -159,7 +157,7 @@
         </div>
 
 
-        <!-- NAVIGATION -->
+        <!-- Navigation -->
 
         <nav class="flex-1 px-4 py-6 overflow-y-auto">
 
@@ -321,7 +319,7 @@
         </nav>
 
 
-        <!-- DOCTOR PROFILE -->
+        <!-- Doctor Profile -->
 
         <div class="p-4 border-t border-slate-100">
 
@@ -346,27 +344,19 @@
                     <p class="text-xs text-slate-400">
                         Ayurvedic Physician
                     </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
+               </div>
+           </div>
+         </div>
     </aside>
 
 
 
-    <!-- =========================================================
-         MAIN AREA
-    ========================================================== -->
+    <!-- Main Portion -->
 
     <div class="md:ml-72 min-h-screen">
 
 
-        <!-- =====================================================
-             TOP BAR
-        ====================================================== -->
+        <!-- Top Bar -->
 
         <header class="sticky top-0 z-30 h-20
                        bg-white/90 backdrop-blur-md
@@ -376,7 +366,7 @@
                         flex items-center justify-between">
 
 
-                <!-- MOBILE MENU -->
+                <!-- Mobile Menu -->
 
                 <button id="menuBtn"
                         class="md:hidden w-10 h-10
@@ -385,11 +375,10 @@
 
                     <i data-lucide="menu"
                        class="w-5 h-5"></i>
+               </button>
 
-                </button>
 
-
-                <!-- PAGE TITLE -->
+                <!-- Page Title-->
 
                 <div class="hidden md:block">
 
@@ -406,7 +395,7 @@
                 </div>
 
 
-                <!-- RIGHT -->
+                <!-- Right -->
 
                 <div class="flex items-center gap-3 ml-auto">
 
@@ -429,34 +418,25 @@
                                     grid place-items-center
                                     text-sm font-bold">
 
-                            D
-
-                        </div>
+                            </div>
 
                         <span class="text-sm font-semibold">
                             Dr. Sharma
                         </span>
 
                     </div>
-
                 </div>
-
             </div>
-
         </header>
 
 
 
-        <!-- =====================================================
-             CONTENT
-        ====================================================== -->
+        <!-- Content -->
 
         <main class="p-5 sm:p-8">
 
 
-            <!-- =================================================
-                 DASHBOARD
-            ================================================== -->
+            <!-- Dashboards -->
 
             <section id="section-dashboard"
                      class="dashboard-section">
@@ -506,19 +486,17 @@
                                class="w-4 h-4"></i>
 
                         </button>
-
                     </div>
-
                 </div>
 
 
 
-                <!-- STATS -->
+                <!-- Statictics -->
 
                 <div class="mt-7 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
 
 
-                    <!-- TODAY -->
+                    <!-- Today -->
 
                     <div class="dashboard-card bg-white
                                 border border-slate-200
@@ -554,7 +532,7 @@
 
 
 
-                    <!-- PENDING -->
+                    <!-- Pendings -->
 
                     <div class="dashboard-card bg-white
                                 border border-slate-200
@@ -588,9 +566,7 @@
 
                     </div>
 
-
-
-                    <!-- REVIEWED -->
+                   <!-- Reviewed -->
 
                     <div class="dashboard-card bg-white
                                 border border-slate-200
@@ -621,7 +597,7 @@
 
 
 
-                    <!-- CONFIRMED -->
+                    <!-- Confirmed -->
 
                     <div class="dashboard-card bg-white
                                 border border-slate-200
@@ -649,12 +625,11 @@
                         </p>
 
                     </div>
-
-                </div>
-
+               </div>
 
 
-                <!-- TODAY'S PATIENTS PREVIEW -->
+
+                <!-- Today's view -->
 
                 <div class="mt-7 bg-white
                             border border-slate-200
@@ -678,8 +653,7 @@
 
                         </div>
 
-
-                        <button
+                         <button
                             data-section-button="patients"
                             class="inline-flex items-center gap-2
                                    px-4 py-2.5 rounded-xl
@@ -696,12 +670,10 @@
 
                     </div>
 
+                  <div class="divide-y divide-slate-100">
 
 
-                    <div class="divide-y divide-slate-100">
-
-
-                        <!-- PATIENT -->
+                        <!-- Patient -->
 
                         <button
                             data-patient="rahul"
@@ -739,7 +711,7 @@
 
 
 
-                        <!-- PATIENT -->
+                        <!-- Patient -->
 
                         <button
                             data-patient="priya"
@@ -775,9 +747,7 @@
 
                         </button>
 
-
-
-                        <!-- PATIENT -->
+                        <!-- Patient -->
 
                         <button
                             data-patient="amit"
@@ -810,20 +780,14 @@
                                          text-xs font-semibold">
                                 Pending
                             </span>
-
-                        </button>
-
+                         </button>
                     </div>
-
                 </div>
-
-            </section>
-
+             </section>
 
 
-            <!-- =================================================
-                 TODAY'S PATIENTS
-            ================================================== -->
+
+            <!-- Today -->
 
             <section id="section-patients"
                      class="dashboard-section hidden">
@@ -844,7 +808,7 @@
                     </p>
 
 
-                    <!-- SEARCH -->
+                    <!-- Search -->
 
                     <div class="mt-7 relative max-w-md">
 
@@ -866,7 +830,7 @@
                     </div>
 
 
-                    <!-- PATIENT LIST -->
+                    <!-- Patient list -->
 
                     <div id="patientList"
                          class="mt-6 bg-white
@@ -874,7 +838,7 @@
                                 rounded-2xl overflow-hidden">
 
 
-                        <!-- ROW -->
+                        <!-- Row -->
 
                         <button
                             data-patient="rahul"
@@ -892,13 +856,8 @@
 
                             <div class="flex-1">
 
-                                <p class="font-semibold">
-                                    Rahul Sharma
-                                </p>
-
-                                <p class="text-sm text-slate-500 mt-1">
-                                    34 years • Male • Gastric discomfort
-                                </p>
+                                <p class="font-semibold">Rahul Sharma</p>
+                                <p class="text-sm text-slate-500 mt-1">34 years • Male • Gastric discomfort</p>
 
                             </div>
 
@@ -915,7 +874,6 @@
                                 </p>
 
                             </div>
-
                         </button>
 
 
@@ -961,8 +919,7 @@
                                 </p>
 
                             </div>
-
-                        </button>
+                         </button>
 
 
 
@@ -1052,20 +1009,14 @@
                                 </p>
 
                             </div>
-
                         </button>
-
                     </div>
-
-                </div>
-
+                 </div>
             </section>
 
 
 
-            <!-- =================================================
-                 PENDING CASES
-            ================================================== -->
+            <!-- Pendings -->
 
             <section id="section-pending"
                      class="dashboard-section hidden">
@@ -1128,11 +1079,8 @@
                                                      text-xs font-semibold">
                                             Pending
                                         </span>
-
                                     </div>
-
                                 </div>
-
                             </div>
 
                             <div class="mt-6 grid grid-cols-2 gap-4">
@@ -1160,8 +1108,7 @@
                                     </p>
 
                                 </div>
-
-                            </div>
+                           </div>
 
                             <button
                                 data-patient="rahul"
@@ -1172,7 +1119,6 @@
                                 Review Case
 
                             </button>
-
                         </div>
 
 
@@ -1199,13 +1145,8 @@
 
                                         <div>
 
-                                            <h3 class="font-bold">
-                                                Amit Kumar
-                                            </h3>
-
-                                            <p class="text-sm text-slate-500">
-                                                Case #AYU-1027
-                                            </p>
+                                            <h3 class="font-bold">Amit Kumar</h3>
+                                            <p class="text-sm text-slate-500"> Case #AYU-1027</p>
 
                                         </div>
 
@@ -1218,10 +1159,8 @@
                                         </span>
 
                                     </div>
-
-                                </div>
-
-                            </div>
+                             </div>
+                      </div>
 
                             <div class="mt-6 grid grid-cols-2 gap-4">
 
@@ -1257,11 +1196,8 @@
                                        bg-teal text-white
                                        font-semibold hover:bg-tealDark">
 
-                                Review Case
-
-                            </button>
-
-                        </div>
+                                Review Case </button>
+                            </div>
 
 
 
@@ -1287,13 +1223,8 @@
 
                                         <div>
 
-                                            <h3 class="font-bold">
-                                                Neha Patel
-                                            </h3>
-
-                                            <p class="text-sm text-slate-500">
-                                                Case #AYU-1030
-                                            </p>
+                                            <h3 class="font-bold"> Neha Patel</h3>
+                                            <p class="text-sm text-slate-500">Case #AYU-1030</p>
 
                                         </div>
 
@@ -1304,40 +1235,27 @@
                                                      text-xs font-semibold">
                                             Pending
                                         </span>
-
-                                    </div>
-
+                                   </div>
                                 </div>
-
                             </div>
 
                             <div class="mt-6 grid grid-cols-2 gap-4">
 
                                 <div class="bg-cream rounded-xl p-4">
 
-                                    <p class="text-xs text-slate-400">
-                                        Age
-                                    </p>
-
-                                    <p class="mt-1 font-semibold">
-                                        37 years
-                                    </p>
+                                    <p class="text-xs text-slate-400">Age</p>
+                                    <p class="mt-1 font-semibold">37 years</p>
 
                                 </div>
 
                                 <div class="bg-cream rounded-xl p-4">
 
-                                    <p class="text-xs text-slate-400">
-                                        Complaint
-                                    </p>
+                                    <p class="text-xs text-slate-400"> Complaint </p>
+                                    <p class="mt-1 font-semibold">Sleep issue</p>
 
-                                    <p class="mt-1 font-semibold">
-                                        Sleep issue
-                                    </p>
-
+                                    
                                 </div>
-
-                            </div>
+                           </div>
 
                             <button
                                 data-patient="neha"
@@ -1346,22 +1264,16 @@
                                        font-semibold hover:bg-tealDark">
 
                                 Review Case
-
-                            </button>
+                           </button>
 
                         </div>
-
                     </div>
-
-                </div>
-
+               </div>
             </section>
 
 
 
-            <!-- =================================================
-                 PATIENT PROFILE
-            ================================================== -->
+            <!-- Patient Profile-->
 
             <section id="section-profile"
                      class="dashboard-section hidden">
@@ -1369,13 +1281,9 @@
                 <div class="max-w-5xl">
 
                     <p class="text-sm font-bold uppercase
-                              tracking-[.18em] text-teal">
-                        Patient Information
-                    </p>
+                              tracking-[.18em] text-teal">Patient Information</p>
 
-                    <h2 class="mt-2 text-3xl font-bold">
-                        Patient Profile
-                    </h2>
+                    <h2 class="mt-2 text-3xl font-bold">Patient Profile</h2>
 
 
                     <div class="mt-8 bg-white border border-slate-200
@@ -1395,18 +1303,13 @@
                             <div>
 
                                 <h3 id="profileName"
-                                    class="text-2xl font-bold">
-                                    Rahul Sharma
-                                </h3>
+                                    class="text-2xl font-bold">Rahul Sharma</h3>
 
                                 <p id="profileCase"
-                                   class="mt-1 text-sm text-slate-500">
-                                    Case #AYU-1024
-                                </p>
+                                   class="mt-1 text-sm text-slate-500">Case #AYU-1024</p>
 
                             </div>
-
-                        </div>
+                       </div>
 
 
                         <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -1414,42 +1317,27 @@
 
                             <div class="bg-cream rounded-xl p-5">
 
-                                <p class="text-xs text-slate-400">
-                                    Age
-                                </p>
+                                <p class="text-xs text-slate-400"> Age</p>
 
-                                <p id="profileAge"
-                                   class="mt-1 font-bold">
-                                    34 years
-                                </p>
+                                <p id="profileAge" class="mt-1 font-bold"> 34 years</p>
 
                             </div>
 
 
                             <div class="bg-cream rounded-xl p-5">
 
-                                <p class="text-xs text-slate-400">
-                                    Gender
-                                </p>
+                                <p class="text-xs text-slate-400">Gender</p>
 
-                                <p id="profileGender"
-                                   class="mt-1 font-bold">
-                                    Male
-                                </p>
+                                <p id="profileGender" class="mt-1 font-bold">Male</p>
 
                             </div>
 
 
                             <div class="bg-cream rounded-xl p-5">
 
-                                <p class="text-xs text-slate-400">
-                                    Blood Group
-                                </p>
+                                <p class="text-xs text-slate-400">Blood Group</p>
 
-                                <p id="profileBlood"
-                                   class="mt-1 font-bold">
-                                    B+
-                                </p>
+                                <p id="profileBlood" class="mt-1 font-bold">B+ </p>
 
                             </div>
 
@@ -1526,9 +1414,7 @@
 
 
 
-            <!-- =================================================
-                 CLINICAL SUMMARY
-            ================================================== -->
+            <!-- Clinic Summary-->
 
             <section id="section-summary"
                      class="dashboard-section hidden">
@@ -1553,7 +1439,7 @@
                     <div class="mt-8 grid lg:grid-cols-2 gap-6">
 
 
-                        <!-- SYMPTOMS -->
+                        <!-- Symptomps -->
 
                         <div class="bg-white border border-slate-200
                                     rounded-2xl p-6">
@@ -1610,7 +1496,7 @@
 
 
 
-                        <!-- HISTORY -->
+                        <!-- History -->
 
                         <div class="bg-white border border-slate-200
                                     rounded-2xl p-6">
@@ -1654,7 +1540,7 @@
 
 
 
-                        <!-- LIFESTYLE -->
+                        <!-- Lifestyle -->
 
                         <div class="bg-white border border-slate-200
                                     rounded-2xl p-6">
@@ -1741,7 +1627,7 @@
 
 
 
-                        <!-- DOCTOR OBSERVATION -->
+                        <!-- Doctor Observation -->
 
                         <div class="bg-white border border-slate-200
                                     rounded-2xl p-6">
@@ -1779,20 +1665,14 @@
                                 require further clinical correlation.
 
                             </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
+                       </div>
+                   </div>
+               </div>
+           </section>
 
 
 
-            <!-- =================================================
-                 AYURVEDIC ASSESSMENT
-            ================================================== -->
+            <!-- Ayurvedic Assessment -->
 
             <section id="section-assessment"
                      class="dashboard-section hidden assessment-section">
@@ -1817,7 +1697,7 @@
                     </p>
 
 
-                    <!-- PRAKRITI -->
+                    <!-- Prakriti and Vikriti -->
 
                     <div class="mt-8 bg-white border border-slate-200
                                 rounded-2xl p-6 sm:p-8">
@@ -1885,7 +1765,7 @@
 
 
 
-                    <!-- DASHAVIDHA -->
+                    <!-- Dasavidha -->
 
                     <div class="mt-6 bg-white border border-slate-200
                                 rounded-2xl p-6 sm:p-8">
@@ -2030,14 +1910,12 @@
                                 </p>
 
                             </div>
-
                         </div>
-
-                    </div>
-
+                   </div>
 
 
-                    <!-- CURRENT EXPERIENCE -->
+
+                    <!-- Current Experience -->
 
                     <div class="mt-6 bg-white border border-slate-200
                                 rounded-2xl p-6 sm:p-8">
@@ -2117,20 +1995,14 @@
                                 </p>
 
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </section>
 
 
 
-            <!-- =================================================
-                 PREVIOUS REPORTS
-            ================================================== -->
+            <!-- Previous Reports -->
 
             <section id="section-reports"
                      class="dashboard-section hidden">
@@ -2154,7 +2026,7 @@
                     <div class="mt-8 space-y-4">
 
 
-                        <!-- REPORT -->
+                        <!-- Report -->
 
                         <div class="bg-white border border-slate-200
                                     rounded-2xl p-5 sm:p-6
@@ -2285,22 +2157,15 @@
                                 </i>
 
                                 View
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
+                           </button>
+                      </div>
+                  </div>
+            </div>
+        </section>
 
 
 
-            <!-- =================================================
-                 RED FLAGS
-            ================================================== -->
+            <!-- Red Flags (Query Raising) -->
 
             <section id="section-redflags"
                      class="dashboard-section hidden">
@@ -2325,7 +2190,7 @@
                     <div class="mt-8 space-y-4">
 
 
-                        <!-- FLAG -->
+                        <!-- Flag -->
 
                         <div class="bg-white border border-red-200
                                     rounded-2xl p-6">
@@ -2368,16 +2233,13 @@
                                         case confirmation.
 
                                     </p>
-
+                                 </div>
                                 </div>
-
                             </div>
 
-                        </div>
 
 
-
-                        <!-- INFORMATIONAL -->
+                        <!-- Informational -->
 
                         <div class="bg-white border border-amber-200
                                     rounded-2xl p-6">
@@ -2407,12 +2269,9 @@
                                         during clinical assessment.
 
                                     </p>
-
                                 </div>
-
-                            </div>
-
-                        </div>
+                             </div>
+                         </div>
 
 
 
@@ -2458,9 +2317,7 @@
 
 
 
-            <!-- =================================================
-                 EDIT SUMMARY
-            ================================================== -->
+            <!-- Edit Summary-->
 
             <section id="section-edit"
                      class="dashboard-section hidden">
@@ -2580,9 +2437,7 @@
 
 
 
-            <!-- =================================================
-                 CONFIRM CASE
-            ================================================== -->
+            <!-- Confirmed Case -->
 
             <section id="section-confirm"
                      class="dashboard-section hidden">
@@ -2785,9 +2640,7 @@
 
 
 
-    <!-- =========================================================
-         TOAST
-    ========================================================== -->
+    <!-- Toastify  -->
 
     <div id="toast"
          class="fixed bottom-5 right-5
@@ -2799,7 +2652,6 @@
 
 
 
-    <!-- JAVASCRIPT -->
 
     <script src="doctor.js"></script>
 
